@@ -15,13 +15,17 @@ $basket = [
     'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 2.38],
     'Gemuesebuersten' => ['amount' => 1, 'PricePerPiece' => 6.00]];
 
+
+
 foreach ($basket as $name => $data) {
     foreach ($data as $property => $price) {
-        match ($property) {
-            'weight' => $price['weight'],
-            'pricePerKilogram' => $price['pricePerKilogram'],
-            'pricePerPiece' => $price['pricePerPiece'],
-            'deposit' => $price['deposit'],
-        };
+        if ($property === 'pricePerPiece') {
+            $soldByWeight = new SoldByPiece();
+            $soldByWeight->name = $name;
+            $soldByWeight->pricePerKilogram = $price;
+            $soldByWeight->price = $soldByWeight->calculatePrice();
+
+
+        }
     }
 }
