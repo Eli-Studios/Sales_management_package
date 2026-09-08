@@ -17,7 +17,7 @@
 
     foreach ($basket as $name => $data) {
         foreach ($data as $property => $value) {
-            if ($property === 'pricePerPiece') {
+            if ($property === 'amount') {
                 $soldByPiece = new SoldByPiece();
                 $soldByPiece->name = $name;
                 $soldByPiece->amount = $value;
@@ -26,6 +26,15 @@
 
                 echo strtoupper($soldByPiece->name) . "    ";
                 echo (float)$soldByPiece->price . "\n";
+            } else {
+                $soldByWeight = new SoldByWeight();
+                $soldByWeight->name = $name;
+                $soldByWeight->weight = $value;
+                $soldByWeight->pricePerKilogram = $value;
+                $soldByWeight->price = $soldByWeight->calculatePrice();
+
+                echo strtoupper($soldByWeight->name) . "    ";
+                echo (float)$soldByWeight->price . "\n";
             }
         }
     }
