@@ -4,16 +4,16 @@
     require_once 'SoldByWeight.php';
 
     $basket = [
-        'Schweinebraten' => ['weight' => 0.148, 'pricePerKilogram' => 14.90],
-        'Haenchen-Oberschinken' => ['weight' => 0.369, 'pricePerKilogram' => 9, 89],
-        'Pistazienlyoner' => ['weight' => 0.108, 'pricePerKilogram' => 9.90],
-        'Bio Casewkerne' => ['amount' => 1, 'pricePerPiece' => 3.59],
-        'Pakchoi Mini' => ['amount' => 1, 'pricePerPiece' => 1.69],
-        'Himalaya Basmati' => ['amount' => 1, 'pricePerPiece' => 2.29],
-        'Bar Style Mix' => ['amount' => 1, 'pricePerPiece' => 1.39],
-        'Limo' => ['amount' => 2, 'pricePerPiece' => 0.95, 'deposit' => 0.08],
-        'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 2.38],
-        'Gemuesebuersten' => ['amount' => 1, 'PricePerPiece' => 6.00]];
+        'Schweinebraten' => ['weight' => 0.148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
+        'Pistazienlyoner' => ['weight' => 0.108, 'pricePerKilogram' => 990, 'taxClass' => "B"],
+        'Bio Cashewkerne' => ['amount' => 1, 'pricePerPiece' => 359, 'taxClass' => "B"],
+        'Pakchoi Mini' => ['amount' => 1, 'pricePerPiece' => 169, 'taxClass' => "B"],
+        'Himalaya Basmati' => ['amount' => 1, 'pricePerPiece' => 229, 'taxClass' => "B"],
+        'Bar Style Mix' => ['amount' => 1, 'pricePerPiece' => 169, 'taxClass' => "B"],
+        'Kinderschokolade' => ['amount' => 1, 'pricePerPiece' => 139, 'taxClass' => "B"],
+        'Limo' => ['amount' => 2, 'pricePerPiece' => 95, 'deposit' => 8, 'taxClass' => "A"],
+        'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A"],
+        'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
     foreach ($basket as $name => $data) {
         foreach ($data as $property => $value) {
@@ -21,20 +21,22 @@
                 $soldByPiece = new SoldByPiece();
                 $soldByPiece->name = $name;
                 $soldByPiece->amount = $value;
-                $soldByPiece->pricePerPiece = $value;
+                $soldByPiece->pricePerPiece = $data["pricePerPiece"];
                 $soldByPiece->price = $soldByPiece->calculatePrice();
+                $soldByPiece->taxClass = $data["taxClass"];
 
                 echo strtoupper($soldByPiece->name) . "    ";
-                echo (float)$soldByPiece->price . "\n";
-            } else {
+                echo number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n";
+            } elseif ($property === 'weight') {
                 $soldByWeight = new SoldByWeight();
                 $soldByWeight->name = $name;
                 $soldByWeight->weight = $value;
-                $soldByWeight->pricePerKilogram = $value;
+                $soldByWeight->pricePerKilogram = $data['pricePerKilogram'];
                 $soldByWeight->price = $soldByWeight->calculatePrice();
+                $soldByWeight->taxClass = $data["taxClass"];
 
                 echo strtoupper($soldByWeight->name) . "    ";
-                echo (float)$soldByWeight->price . "\n";
+                echo number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n";
             }
         }
     }
