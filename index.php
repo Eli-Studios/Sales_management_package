@@ -11,32 +11,42 @@
         'Himalaya Basmati' => ['amount' => 1, 'pricePerPiece' => 229, 'taxClass' => "B"],
         'Bar Style Mix' => ['amount' => 1, 'pricePerPiece' => 169, 'taxClass' => "B"],
         'Kinderschokolade' => ['amount' => 1, 'pricePerPiece' => 139, 'taxClass' => "B"],
-        'Limo' => ['amount' => 2, 'pricePerPiece' => 95, 'deposit' => 8, 'taxClass' => "A"],
-        'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A"],
+        'Limo' => ['amount' => 2, 'pricePerPiece' => 95, 'taxClass' => "A", 'depositPerPiece' => 8],
+        'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
     foreach ($basket as $name => $data) {
         foreach ($data as $property => $value) {
-            if ($property === 'amount') {
-                $soldByPiece = new SoldByPiece();
-                $soldByPiece->name = $name;
-                $soldByPiece->amount = $value;
-                $soldByPiece->pricePerPiece = $data["pricePerPiece"];
-                $soldByPiece->price = $soldByPiece->calculatePrice();
-                $soldByPiece->taxClass = $data["taxClass"];
+            switch ($property) {
+                case 'amount':
+                    $soldByPiece = new SoldByPiece();
+                    $soldByPiece->name = $name;
+                    $soldByPiece->amount = $value;
+                    $soldByPiece->pricePerPiece = $data["pricePerPiece"];
+                    $soldByPiece->price = $soldByPiece->calculatePrice();
+                    $soldByPiece->taxClass = $data["taxClass"];
 
-                echo strtoupper($soldByPiece->name) . "    ";
-                echo number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n";
-            } elseif ($property === 'weight') {
-                $soldByWeight = new SoldByWeight();
-                $soldByWeight->name = $name;
-                $soldByWeight->weight = $value;
-                $soldByWeight->pricePerKilogram = $data['pricePerKilogram'];
-                $soldByWeight->price = $soldByWeight->calculatePrice();
-                $soldByWeight->taxClass = $data["taxClass"];
+                    echo strtoupper($soldByPiece->name) . "    ";
+                    echo number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n";
+                    foreach ($data as $property => $value) {
+                        if ($property == 'depositPerPiece') {
+                            $soldByPiece->depositPerPiece = $data["depositPerPiece"];
+                            $soldByPiece->deposit = $soldByPiece->calculateDeposit();
+                            echo strtoupper("  Pfand " . number_format($soldByPiece->depositPerPiece / 100) . " EUR") . "    " . $soldByPiece->deposit . " " . $soldByPiece->taxClass . "\n";
+                            echo "  " . $soldByPiece->amount . " Stk x" . "   " . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
+                        }
+                    }
+                break;
+                case 'weight':
+                    $soldByWeight = new SoldByWeight();
+                    $soldByWeight->name = $name;
+                    $soldByWeight->weight = $value;
+                    $soldByWeight->pricePerKilogram = $data['pricePerKilogram'];
+                    $soldByWeight->price = $soldByWeight->calculatePrice();
+                    $soldByWeight->taxClass = $data["taxClass"];
 
-                echo strtoupper($soldByWeight->name) . "    ";
-                echo number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n";
+                    echo strtoupper($soldByWeight->name) . "    ";
+                    echo number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n";
             }
         }
     }
