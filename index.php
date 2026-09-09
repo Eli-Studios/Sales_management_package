@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     require_once 'Products.php';
     require_once 'SoldByPiece.php';
     require_once 'SoldByWeight.php';
@@ -36,9 +36,11 @@
                             echo "  " . $soldByPiece->amount . " Stk x" . "   " . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
                         }
                     }
+
+                    $priceSum += (int)$soldByPiece->price;
                 break;
                 case 'weight':
-                    $soldByWeight = new SoldByWeight();
+                    $soldByWeight = new SoldByWeight(); //Das hier muss auch für 52 gelten!!
                     $soldByWeight->name = $name;
                     $soldByWeight->weight = $value;
                     $soldByWeight->pricePerKilogram = $data['pricePerKilogram'];
@@ -47,6 +49,12 @@
 
                     echo strtoupper($soldByWeight->name) . "    ";
                     echo number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n";
+                    $priceSum += (int)$soldByWeight->price;
             }
         }
     }
+
+    echo "----------------------------------------------------------------------------------\n";
+    echo strtoupper("Summe" . "    EUR  " . number_format($priceSum /100, 2, ",") . "\n");
+    echo "==================================================================================";
+
