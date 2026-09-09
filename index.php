@@ -1,8 +1,13 @@
 ﻿<?php
+    //Importing all relevant classes and functions
     require_once 'Products.php';
     require_once 'SoldByPiece.php';
     require_once 'SoldByWeight.php';
 
+    //Variables | First declaration and initialisation
+    $priceSum = 0;
+
+    //My data array that contains all the products a customer wants to buy
     $basket = [
         'Schweinebraten' => ['weight' => 0.148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
         'Pistazienlyoner' => ['weight' => 0.108, 'pricePerKilogram' => 990, 'taxClass' => "B"],
@@ -15,6 +20,7 @@
         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
+    //Program logic
     foreach ($basket as $name => $data) {
         foreach ($data as $property => $value) {
             switch ($property) {
@@ -57,4 +63,3 @@
     echo "----------------------------------------------------------------------------------\n";
     echo strtoupper("Summe" . "    EUR  " . number_format($priceSum /100, 2, ",") . "\n");
     echo "==================================================================================";
-
