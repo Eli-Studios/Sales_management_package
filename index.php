@@ -7,7 +7,7 @@
     //Variables | First declaration and initialisation
     $priceSum = 0;
 
-    //My data array that contains all the products a customer wants to buy
+    //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
         'Schweinebraten' => ['weight' => 0.148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
         'Pistazienlyoner' => ['weight' => 0.108, 'pricePerKilogram' => 990, 'taxClass' => "B"],
@@ -34,6 +34,7 @@
 
                     echo strtoupper($soldByPiece->name) . "    ";
                     echo number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n";
+
                     foreach ($data as $property => $value) {
                         if ($property == 'depositPerPiece') {
                             $soldByPiece->depositPerPiece = $data["depositPerPiece"];
