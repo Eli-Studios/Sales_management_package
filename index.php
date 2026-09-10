@@ -20,7 +20,18 @@
         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
-    //Program logic
+    function getLongestProductName(array $basket): mixed
+    {
+        foreach ($basket as $key) {
+            $longestProductName = strlen(max(array_keys($basket)));
+        }
+        return $longestProductName;
+    }
+
+    $longestProductName = getLongestProductName($basket);
+    var_dump($longestProductName);
+
+//Program logic
     foreach ($basket as $name => $data) {
         foreach ($data as $property => $value) {
             switch ($property) {
@@ -32,14 +43,15 @@
                     $soldByPiece->price = $soldByPiece->calculatePrice();
                     $soldByPiece->taxClass = $data["taxClass"];
 
-                    echo strtoupper($soldByPiece->name) . "    ";
-                    echo number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n";
+                    echo strtoupper($soldByPiece->name);
+                    echo str_pad(number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n", $longestProductName + 5, " ", STR_PAD_LEFT);
 
                     foreach ($data as $property => $value) {
                         if ($property == 'depositPerPiece') {
                             $soldByPiece->depositPerPiece = $data["depositPerPiece"];
                             $soldByPiece->deposit = $soldByPiece->calculateDeposit();
-                            echo strtoupper("  Pfand " . number_format($soldByPiece->depositPerPiece / 100) . " EUR") . "    " . $soldByPiece->deposit . " " . $soldByPiece->taxClass . "\n";
+                            echo strtoupper("  Pfand ");
+                            echo str_pad(number_format($soldByPiece->depositPerPiece / 100) . " EUR" . "    " . $soldByPiece->deposit . " " . $soldByPiece->taxClass . "\n", $longestProductName + 5, " ", STR_PAD_LEFT);
                             echo "  " . $soldByPiece->amount . " Stk x" . "   " . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
                         }
                     }
@@ -54,8 +66,8 @@
                     $soldByWeight->price = $soldByWeight->calculatePrice();
                     $soldByWeight->taxClass = $data["taxClass"];
 
-                    echo strtoupper($soldByWeight->name) . "    ";
-                    echo number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n";
+                    echo strtoupper($soldByWeight->name);
+                    echo str_pad(number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n", $longestProductName + 5, " ", STR_PAD_LEFT);
                     $priceSum += (int)$soldByWeight->price;
             }
         }
