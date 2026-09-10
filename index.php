@@ -28,10 +28,21 @@
 
     function getLongestProductName (array $basket): mixed
     {
-        foreach ($basket as $key) {
-            $longestProductNameTemp = strlen(max(array_keys($basket)));
+        foreach ($basket as $key=>$value) {
+            $key = strlen($key);
+            $temp = $key;
+            switch($key) {
+                case $key > $temp:
+                    $longestProductName = $key;
+                    break;
+                case $key < $temp:
+                    $longestProductName = $temp;
+                    break;
+                default:
+                    $longestProductName = $key;
+            }
         }
-        return $longestProductNameTemp;
+        return $longestProductName;
     }
 
 
@@ -63,7 +74,7 @@
                             echo strtoupper("  Pfand ");
                             echo number_format($soldByPiece->depositPerPiece / 100, 2, ",") . " EUR "
                                         . str_pad(number_format($soldByPiece->deposit / 100, 2, ",") . " "
-                                        . $soldByPiece->taxClass . "\n", 17, " ", STR_PAD_LEFT);
+                                        . $soldByPiece->taxClass . "\n", 18, " ", STR_PAD_LEFT);
                             echo "  " . $soldByPiece->amount . " Stk x" . "   "
                                         . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
                         }
