@@ -1,0 +1,268 @@
+Command finished with exit code 0.
+Command output:
+diff --git a/Drinks.php b/Drinks.php
+index e851fe2..79ed4bb 100644
+--- a/Drinks.php
++++ b/Drinks.php
+@@ -1,6 +1,25 @@
+ <?php
+ 
+-class Drinks
++class Drinks extends SoldByPiece
+ {
++    public int $depositPerPiece;
++    public int $deposit;
+ 
++    function calculatePrice(): int
++    {
++        return $this->price = $this->amount * $this->pricePerPiece;
++    }
++
++    function calculateDeposit(): int
++    {
++        return $this->deposit = $this->amount * $this->depositPerPiece;
++    }
++
++    puplic public function __construct(string $name, array $data)
++    {
++        parent::__construct($name, $data);
++        $this->price = $this->calculatePrice();
++        $this->depositPerPiece = $data["depositPerPiece"];
++        $this->deposit = $this->calculateDeposit();
++    }
+ }
+\ No newline at end of file
+diff --git a/Products.php b/Products.php
+index 0e532df..723c55b 100644
+--- a/Products.php
++++ b/Products.php
+@@ -2,9 +2,15 @@
+ 
+ abstract class Products
+ {
+-   public $name;
+-   public $price;
+-   public $taxClass;
++   public string $name;
++   public int $price;
++   public string $taxClass;
+ 
+-   abstract function calculatePrice(): string;
++   abstract function calculatePrice(): int;
++
++   public function __construct(string $name, array $data)
++   {
++       $this->name = strtoupper($name);
++       $this->taxClass = $data["taxClass"];
++   }
+ }
+\ No newline at end of file
+diff --git a/SoldByPiece.php b/SoldByPiece.php
+index c891587..0a11d26 100644
+--- a/SoldByPiece.php
++++ b/SoldByPiece.php
+@@ -2,19 +2,16 @@
+ 
+ class SoldByPiece extends Products
+ {
+-    public $amount;
+-    public $pricePerPiece;
+-    public $depositPerPiece;
+-    public $deposit;
+-    function calculatePrice(): string
++    public int $amount;
++    public int $pricePerPiece;
++    function calculatePrice(): int
+     {
+-        $this->price = $this->amount * $this->pricePerPiece;
+-        return $this->price = (string) $this->price;
++        return $this->price = $this->amount * $this->pricePerPiece;
+     }
+-
+-    function calculateDeposit(): string
++    public function __construct(string $name, array $data)
+     {
+-        $this->deposit = $this->amount * $this->depositPerPiece;
+-        return $this->deposit = (string) $this->deposit;
++        parent::__construct($name, $data);
++        $this->amount = $data["amount"];
++        $this->price = $this->calculatePrice();
+     }
+ }
+\ No newline at end of file
+diff --git a/SoldByWeight.php b/SoldByWeight.php
+index 8693c1a..3d6c803 100644
+--- a/SoldByWeight.php
++++ b/SoldByWeight.php
+@@ -2,11 +2,17 @@
+ 
+ class SoldByWeight extends Products
+ {
+-    public $weight;
+-    public $pricePerKilogram;
+-    function calculatePrice(): string
++    public float $weight;
++    public int $pricePerKilogram;
++    function calculatePrice(): int
+     {
+-        $this->price = $this->pricePerKilogram * $this->weight;
+-        return $this->price = (string) $this->price;
++        return $this->price = $this->pricePerKilogram * $this->weight;
++    }
++    public function __construct(string $name, array $data)
++    {
++        parent::__construct($name, $data);
++        $this->weight = $data['weight'];
++        $this->pricePerKilogram = $data['pricePerKilogram'];
++        $this->price = $this->calculatePrice();
+     }
+ }
+\ No newline at end of file
+diff --git a/index.php b/index.php
+index e8b1fdd..18b5745 100644
+--- a/index.php
++++ b/index.php
+@@ -4,25 +4,9 @@
+     require_once 'SoldByPiece.php';
+     require_once 'SoldByWeight.php';
+ 
+-    //Variables | First declaration and initialisation
++    //Variables | First declaration and initialization
+     $priceSum = 0;
+     $taxPercentage = ['A' => 0.19, 'B' => 0.07];
+-    $setup = false;
+-
+-    if ($setup === false) {
+-        echo "Wellcome to SALES Manager. We need some information about your company to make this program run smoothly.\n";
+-        echo "All information you tell SALES Manager stay on your machine and won't be synced to a cloud or provided to third parties.\n\n";
+-
+-        echo "Please insert... ";
+-        echo "Company Name: ";
+-        $companyName = trim(fgets(STDIN));
+-        echo "\n";
+-        echo "Street: ";
+-        $companyStreet = trim(fgets(STDIN));
+-        echo "\n";
+-        echo "PLZ: ";
+-        echo
+-    }
+ 
+     //My data array that contains all the products and it's data a customer wants to buy
+     $basket = [
+@@ -37,29 +21,18 @@
+         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
+         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
+ 
+-    function getProductNameLength(string $name)
++    function getProductNameLength(string $name) : int
+     {
+-        $productNameLength = strlen($name);
+-        return $productNameLength;
++        return strlen($name);
+     }
+ 
+-    function getLongestProductName (array $basket): mixed
++    function getLongestProductName (array $basket, string $name): int
+     {
+-        foreach ($basket as $key=>$value) {
+-            $key = strlen($key);
+-            $temp = $key;
+-            switch($key) {
+-                case $key > $temp:
+-                    $longestProductName = $key;
+-                    break;
+-                case $key < $temp:
+-                    $longestProductName = $temp;
+-                    break;
+-                default:
+-                    $longestProductName = $key;
+-            }
++        foreach ($basket as $key => $value) {
++            $longest = max($basket);
+         }
+-        return $longestProductName;
++
++        return (int)$longest;
+     }
+ 
+ 
+@@ -68,57 +41,43 @@
+         foreach ($data as $property => $value) {
+             switch ($property) {
+                 case 'amount':
+-                    $soldByPiece = new SoldByPiece();
+-                    $soldByPiece->name = $name;
+-                    $soldByPiece->amount = $value;
+-                    $soldByPiece->pricePerPiece = $data["pricePerPiece"];
+-                    $soldByPiece->price = $soldByPiece->calculatePrice();
+-                    $soldByPiece->taxClass = $data["taxClass"];
+-
+-                    echo strtoupper($soldByPiece->name);
++                    $soldByPiece = new SoldByPiece($name, $data);
++                    echo $soldByPiece->name;
+                     $productNameLength = getProductNameLength($name);
+-                    $totalLineWidth = getLongestProductName($basket) + 20;
++                    $totalLineWidth = getLongestProductName($basket, $name) + 20;
+                     #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
+                     #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
+                     # objects need a more specific  name (currently just the class name :()
+-                    echo str_pad(number_format(round((float)$soldByPiece->price / 100, 2), 2, ",")
++                    echo str_pad(number_format(round($soldByPiece->price / 100, 2), 2, ",")
+                             . " $soldByPiece->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
+ 
+                     foreach ($data as $property => $value) {
+                         if ($property == 'depositPerPiece') {
+-                            $soldByPiece->depositPerPiece = $data["depositPerPiece"];
+-                            $soldByPiece->deposit = $soldByPiece->calculateDeposit();
++                            $drinks = new Drinks($name, $data);
+                             echo strtoupper("  Pfand ");
+-                            echo number_format($soldByPiece->depositPerPiece / 100, 2, ",") . " EUR "
+-                                        . str_pad(number_format($soldByPiece->deposit / 100, 2, ",") . " "
+-                                        . $soldByPiece->taxClass . "\n", 18, " ", STR_PAD_LEFT);
+-                            echo "  " . $soldByPiece->amount . " Stk x" . "   "
+-                                        . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
++                            echo number_format($drinks->depositPerPiece / 100, 2, ",") . " EUR "
++                                        . str_pad(number_format($drinks->deposit / 100, 2, ",") . " "
++                                        . $drinks->taxClass . "\n", 18, " ", STR_PAD_LEFT);
++                            echo "  " . $drinks->amount . " Stk x" . "   "
++                                        . number_format($drinks->depositPerPiece / 100, 2, ",") . "\n";
+                         }
+                     }
+ 
+-                    $priceSum += (int)$soldByPiece->price;
++                    $priceSum += $soldByPiece->price + $drinks->price;
+                 break;
+                 case 'weight':
+-                    $soldByWeight = new SoldByWeight(); //Das hier muss auch für 52 gelten!!
+-                    $soldByWeight->name = $name;
+-                    $soldByWeight->weight = $value;
+-                    $soldByWeight->pricePerKilogram = $data['pricePerKilogram'];
+-                    $soldByWeight->price = $soldByWeight->calculatePrice();
+-                    $soldByWeight->taxClass = $data["taxClass"];
++                    $soldByWeight = new SoldByWeight($name, $data); //Das hier muss auch für 52 gelten!!
+ 
+                     echo strtoupper($soldByWeight->name);
+                     $productNameLength = getProductNameLength($name);
+-                    $totalLineWidth = getLongestProductName($basket) + 20;
+-                    echo str_pad(number_format(round((float)$soldByWeight->price / 100, 2), 2, ",")
++                    $totalLineWidth = getLongestProductName($basket, $name) + 20;
++                    echo str_pad(number_format(round($soldByWeight->price / 100, 2), 2, ",")
+                         . " $soldByWeight->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
+-                    $priceSum += (int)$soldByWeight->price;
++                    $priceSum += $soldByWeight->price;
+             }
+         }
+     }
+ 
+-    echo
+-
+     echo "----------------------------------------------------------------------------------\n";
+     echo strtoupper("Summe" . "    EUR  " . number_format($priceSum / 100, 2, ",") . "\n");
+     echo "==================================================================================\n";
+@@ -127,4 +86,4 @@
+     echo "Geg. BAR          EUR     " . number_format($payedInCache, 2, ",") . "\n";
+     echo "Rückgeld BAR          EUR     " . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
+ 
+-    echo "***********************************************************************************\n";
++    echo "***********************************************************************************\n";
+\ No newline at end of file

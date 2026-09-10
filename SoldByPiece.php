@@ -1,20 +1,20 @@
 <?php
 
+require_once 'Products.php';
+
 class SoldByPiece extends Products
 {
-    public $amount;
-    public $pricePerPiece;
-    public $depositPerPiece;
-    public $deposit;
-    function calculatePrice(): string
+    public int $amount;
+    public int $pricePerPiece;
+    function calculatePrice(): int
     {
-        $this->price = $this->amount * $this->pricePerPiece;
-        return $this->price = (string) $this->price;
+        return $this->price = $this->amount * $this->pricePerPiece;
     }
-
-    function calculateDeposit(): string
+    public function __construct(string $name, array $data)
     {
-        $this->deposit = $this->amount * $this->depositPerPiece;
-        return $this->deposit = (string) $this->deposit;
+        parent::__construct($name, $data);
+        $this->amount = $data["amount"];
+        $this->pricePerPiece = $data["pricePerPiece"];
+        $this->price = $this->calculatePrice();
     }
 }

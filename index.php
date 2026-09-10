@@ -3,26 +3,11 @@
     require_once 'Products.php';
     require_once 'SoldByPiece.php';
     require_once 'SoldByWeight.php';
+    require_once 'Drinks.php';
 
-    //Variables | First declaration and initialisation
+    //Variables | First declaration and initialization
     $priceSum = 0;
     $taxPercentage = ['A' => 0.19, 'B' => 0.07];
-    $setup = false;
-
-    if ($setup === false) {
-        echo "Wellcome to SALES Manager. We need some information about your company to make this program run smoothly.\n";
-        echo "All information you tell SALES Manager stay on your machine and won't be synced to a cloud or provided to third parties.\n\n";
-
-        echo "Please insert... ";
-        echo "Company Name: ";
-        $companyName = trim(fgets(STDIN));
-        echo "\n";
-        echo "Street: ";
-        $companyStreet = trim(fgets(STDIN));
-        echo "\n";
-        echo "PLZ: ";
-        echo
-    }
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
@@ -37,29 +22,18 @@
         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
-    function getProductNameLength(string $name)
+    function getProductNameLength(string $name) : int
     {
-        $productNameLength = strlen($name);
-        return $productNameLength;
+        return strlen($name);
     }
 
-    function getLongestProductName (array $basket): mixed
+    function getLongestProductName (array $basket, string $name): int
     {
-        foreach ($basket as $key=>$value) {
-            $key = strlen($key);
-            $temp = $key;
-            switch($key) {
-                case $key > $temp:
-                    $longestProductName = $key;
-                    break;
-                case $key < $temp:
-                    $longestProductName = $temp;
-                    break;
-                default:
-                    $longestProductName = $key;
-            }
+        foreach ($basket as $key => $value) {
+            $longest = max($basket);
         }
-        return $longestProductName;
+
+        return (int)$longest;
     }
 
 
@@ -68,56 +42,43 @@
         foreach ($data as $property => $value) {
             switch ($property) {
                 case 'amount':
-                    $soldByPiece = new SoldByPiece();
-                    $soldByPiece->name = $name;
-                    $soldByPiece->amount = $value;
-                    $soldByPiece->pricePerPiece = $data["pricePerPiece"];
-                    $soldByPiece->price = $soldByPiece->calculatePrice();
-                    $soldByPiece->taxClass = $data["taxClass"];
-
-                    echo strtoupper($soldByPiece->name);
+                    $soldByPiece = new SoldByPiece($name, $data);
+                    echo $soldByPiece->name;
                     $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket) + 20;
+                    $totalLineWidth = getLongestProductName($basket, $name) + 20;
                     #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
                     #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
                     # objects need a more specific  name (currently just the class name :()
-                    echo str_pad(number_format(round((float)$soldByPiece->price / 100, 2), 2, ",")
+                    echo str_pad(number_format(round($soldByPiece->price / 100, 2), 2, ",")
                             . " $soldByPiece->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
 
+                    $drinks = null;
                     foreach ($data as $property => $value) {
                         if ($property == 'depositPerPiece') {
-                            $soldByPiece->depositPerPiece = $data["depositPerPiece"];
-                            $soldByPiece->deposit = $soldByPiece->calculateDeposit();
+                            $drinks = new Drinks($name, $data);
                             echo strtoupper("  Pfand ");
-                            echo number_format($soldByPiece->depositPerPiece / 100, 2, ",") . " EUR "
-                                        . str_pad(number_format($soldByPiece->deposit / 100, 2, ",") . " "
-                                        . $soldByPiece->taxClass . "\n", 18, " ", STR_PAD_LEFT);
-                            echo "  " . $soldByPiece->amount . " Stk x" . "   "
-                                        . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
+                            echo number_format($drinks->depositPerPiece / 100, 2, ",") . " EUR "
+                                        . str_pad(number_format($drinks->deposit / 100, 2, ",") . " "
+                                        . $drinks->taxClass . "\n", 18, " ", STR_PAD_LEFT);
+                            echo "  " . $drinks->amount . " Stk x" . "   "
+                                        . number_format($drinks->depositPerPiece / 100, 2, ",") . "\n";
                         }
                     }
 
-                    $priceSum += (int)$soldByPiece->price;
+                    $priceSum += $soldByPiece->price + ($drinks ? $drinks->deposit : 0);
                 break;
                 case 'weight':
-                    $soldByWeight = new SoldByWeight(); //Das hier muss auch für 52 gelten!!
-                    $soldByWeight->name = $name;
-                    $soldByWeight->weight = $value;
-                    $soldByWeight->pricePerKilogram = $data['pricePerKilogram'];
-                    $soldByWeight->price = $soldByWeight->calculatePrice();
-                    $soldByWeight->taxClass = $data["taxClass"];
+                    $soldByWeight = new SoldByWeight($name, $data); //Das hier muss auch für 52 gelten!!
 
                     echo strtoupper($soldByWeight->name);
                     $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket) + 20;
-                    echo str_pad(number_format(round((float)$soldByWeight->price / 100, 2), 2, ",")
+                    $totalLineWidth = getLongestProductName($basket, $name) + 20;
+                    echo str_pad(number_format(round($soldByWeight->price / 100, 2), 2, ",")
                         . " $soldByWeight->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
-                    $priceSum += (int)$soldByWeight->price;
+                    $priceSum += $soldByWeight->price;
             }
         }
     }
-
-    echo
 
     echo "----------------------------------------------------------------------------------\n";
     echo strtoupper("Summe" . "    EUR  " . number_format($priceSum / 100, 2, ",") . "\n");
