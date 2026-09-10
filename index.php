@@ -11,8 +11,9 @@
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
-        'Schweinebraten' => ['weight' => 0.148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
-        'Pistazienlyoner' => ['weight' => 0.108, 'pricePerKilogram' => 990, 'taxClass' => "B"],
+        'Schweinebraten' => ['weight' => 148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
+        'Hae-Obersch.' => ['weight' => 369, 'pricePerKilogram' => 990, 'taxClass' => "B"],
+        'Pistazienlyoner' => ['weight' => 108, 'pricePerKilogram' => 990, 'taxClass' => "B"],
         'Bio Cashewkerne' => ['amount' => 1, 'pricePerPiece' => 359, 'taxClass' => "B"],
         'Pakchoi Mini' => ['amount' => 1, 'pricePerPiece' => 169, 'taxClass' => "B"],
         'Himalaya Basmati' => ['amount' => 1, 'pricePerPiece' => 229, 'taxClass' => "B"],
@@ -27,7 +28,7 @@
         return strlen($name);
     }
 
-    function getLongestProductName (array $basket, string $name): int
+    function getLongestProductName (array $basket): int
     {
         foreach ($basket as $key => $value) {
             $longest = max($basket);
@@ -45,7 +46,7 @@
                     $soldByPiece = new SoldByPiece($name, $data);
                     echo $soldByPiece->name;
                     $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket, $name) + 20;
+                    $totalLineWidth = getLongestProductName($basket) + 34;
                     #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
                     #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
                     # objects need a more specific  name (currently just the class name :()
@@ -72,7 +73,7 @@
 
                     echo strtoupper($soldByWeight->name);
                     $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket, $name) + 20;
+                    $totalLineWidth = getLongestProductName($basket) + 34;
                     echo str_pad(number_format(round($soldByWeight->price / 100, 2), 2, ",")
                         . " $soldByWeight->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
                     $priceSum += $soldByWeight->price;
@@ -80,12 +81,12 @@
         }
     }
 
-    echo "----------------------------------------------------------------------------------\n";
+    echo str_pad("\n", $totalLineWidth, "-", STR_PAD_LEFT);
     echo strtoupper("Summe" . "    EUR  " . number_format($priceSum / 100, 2, ",") . "\n");
-    echo "==================================================================================\n";
-    echo "Geg. BAR: ";
-    $payedInCache = trim(fgets(STDIN));
-    echo "Geg. BAR          EUR     " . number_format($payedInCache, 2, ",") . "\n";
-    echo "Rückgeld BAR          EUR     " . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
+    echo str_pad("\n\n\n", $totalLineWidth + 2, "=", STR_PAD_LEFT);
+    #echo "Geg. BAR: ";
+    #$payedInCache = trim(fgets(STDIN));
+    #echo "Geg. BAR          EUR     " . number_format($payedInCache, 2, ",") . "\n";
+    #echo "Rückgeld BAR          EUR     " . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
 
-    echo "***********************************************************************************\n";
+    echo str_pad("\n", $totalLineWidth, "*", STR_PAD_LEFT);

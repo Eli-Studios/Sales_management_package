@@ -8,7 +8,7 @@ class SoldByWeight extends Products
     public int $pricePerKilogram;
     function calculatePrice(): int
     {
-        return $this->price = $this->pricePerKilogram * $this->weight;
+        return $this->price = round($this->pricePerKilogram * ($this->weight / 1000));
     }
     public function __construct(string $name, array $data)
     {
