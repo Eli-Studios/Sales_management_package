@@ -6,7 +6,6 @@
 
     //Variables | First declaration and initialisation
     $priceSum = 0;
-    $i = 0;
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
@@ -21,12 +20,10 @@
         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
-    function getProductNameLength(array $basket, $i)
+    function getProductNameLength(string $name)
     {
-        $arrayKeys = array_keys($basket);
-        $ProductNameLengthTemp = $arrayKeys[$i];
-        $i++;
-        return $ProductNameLengthTemp;
+        $productNameLength = strlen($name);
+        return $productNameLength;
     }
 
     function getLongestProductName (array $basket): mixed
@@ -51,17 +48,24 @@
                     $soldByPiece->taxClass = $data["taxClass"];
 
                     echo strtoupper($soldByPiece->name);
-                    $productNameLength = getProductNameLength($basket);
-                    $totalLineWidth = getLongestProductName($basket) + 5;
-                    echo str_pad(number_format(round((float)$soldByPiece->price / 100, 2), 2, ",") . " $soldByPiece->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
+                    $productNameLength = getProductNameLength($name);
+                    $totalLineWidth = getLongestProductName($basket) + 20;
+                    #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
+                    #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
+                    # objects need a more specific  name (currently just the class name :()
+                    echo str_pad(number_format(round((float)$soldByPiece->price / 100, 2), 2, ",")
+                            . " $soldByPiece->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
 
                     foreach ($data as $property => $value) {
                         if ($property == 'depositPerPiece') {
                             $soldByPiece->depositPerPiece = $data["depositPerPiece"];
                             $soldByPiece->deposit = $soldByPiece->calculateDeposit();
                             echo strtoupper("  Pfand ");
-                            echo str_pad(number_format($soldByPiece->depositPerPiece / 100) . " EUR" . "    " . $soldByPiece->deposit . " " . $soldByPiece->taxClass . "\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
-                            echo "  " . $soldByPiece->amount . " Stk x" . "   " . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
+                            echo number_format($soldByPiece->depositPerPiece / 100, 2, ",") . " EUR "
+                                        . str_pad(number_format($soldByPiece->deposit / 100, 2, ",") . " "
+                                        . $soldByPiece->taxClass . "\n", 17, " ", STR_PAD_LEFT);
+                            echo "  " . $soldByPiece->amount . " Stk x" . "   "
+                                        . number_format($soldByPiece->depositPerPiece / 100, 2, ",") . "\n";
                         }
                     }
 
@@ -76,9 +80,10 @@
                     $soldByWeight->taxClass = $data["taxClass"];
 
                     echo strtoupper($soldByWeight->name);
-                    $productNameLength = getProductNameLength($basket);
-                    $totalLineWidth = getLongestProductName($basket) + 5;
-                    echo str_pad(number_format(round((float)$soldByWeight->price / 100, 2), 2, ",") . " $soldByWeight->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
+                    $productNameLength = getProductNameLength($name);
+                    $totalLineWidth = getLongestProductName($basket) + 20;
+                    echo str_pad(number_format(round((float)$soldByWeight->price / 100, 2), 2, ",")
+                        . " $soldByWeight->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
                     $priceSum += (int)$soldByWeight->price;
             }
         }
