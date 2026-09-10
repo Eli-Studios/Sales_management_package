@@ -6,6 +6,23 @@
 
     //Variables | First declaration and initialisation
     $priceSum = 0;
+    $taxPercentage = ['A' => 0.19, 'B' => 0.07];
+    $setup = false;
+
+    if ($setup === false) {
+        echo "Wellcome to SALES Manager. We need some information about your company to make this program run smoothly.\n";
+        echo "All information you tell SALES Manager stay on your machine and won't be synced to a cloud or provided to third parties.\n\n";
+
+        echo "Please insert... ";
+        echo "Company Name: ";
+        $companyName = trim(fgets(STDIN));
+        echo "\n";
+        echo "Street: ";
+        $companyStreet = trim(fgets(STDIN));
+        echo "\n";
+        echo "PLZ: ";
+        echo
+    }
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
@@ -61,6 +78,14 @@
         }
     }
 
+    echo
+
     echo "----------------------------------------------------------------------------------\n";
-    echo strtoupper("Summe" . "    EUR  " . number_format($priceSum /100, 2, ",") . "\n");
-    echo "==================================================================================";
+    echo strtoupper("Summe" . "    EUR  " . number_format($priceSum / 100, 2, ",") . "\n");
+    echo "==================================================================================\n";
+    echo "Geg. BAR: ";
+    $payedInCache = trim(fgets(STDIN));
+    echo "Geg. BAR          EUR     " . number_format($payedInCache, 2, ",") . "\n";
+    echo "Rückgeld BAR          EUR     " . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
+
+    echo "***********************************************************************************\n";
