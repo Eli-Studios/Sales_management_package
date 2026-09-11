@@ -44,25 +44,17 @@
             switch ($property) {
                 case 'amount':
                     $soldByPiece = new SoldByPiece($name, $data);
-                    echo $soldByPiece->name;
                     $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket) + 34;
+                    $totalLineWidth = getLongestProductName($basket) + 44;
                     #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
                     #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
                     # objects need a more specific  name (currently just the class name :()
-                    echo str_pad(number_format(round($soldByPiece->price / 100, 2), 2, ",")
-                            . " $soldByPiece->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
-
+                    $soldByPiece->output($soldByPiece, $totalLineWidth, $productNameLength);
                     $drinks = null;
                     foreach ($data as $property => $value) {
                         if ($property == 'depositPerPiece') {
                             $drinks = new Drinks($name, $data);
-                            echo strtoupper("  Pfand ");
-                            echo number_format($drinks->depositPerPiece / 100, 2, ",") . " EUR "
-                                        . str_pad(number_format($drinks->deposit / 100, 2, ",") . " "
-                                        . $drinks->taxClass . "\n", 18, " ", STR_PAD_LEFT);
-                            echo "  " . $drinks->amount . " Stk x" . "   "
-                                        . number_format($drinks->depositPerPiece / 100, 2, ",") . "\n";
+                            $drinks->output($drinks, $totalLineWidth, $productNameLength);
                         }
                     }
 
@@ -70,23 +62,20 @@
                 break;
                 case 'weight':
                     $soldByWeight = new SoldByWeight($name, $data); //Das hier muss auch für 52 gelten!!
-
-                    echo strtoupper($soldByWeight->name);
                     $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket) + 34;
-                    echo str_pad(number_format(round($soldByWeight->price / 100, 2), 2, ",")
-                        . " $soldByWeight->taxClass\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
+                    $totalLineWidth = getLongestProductName($basket) + 44;
+                    $soldByWeight->output($soldByWeight, $totalLineWidth, $productNameLength);
                     $priceSum += $soldByWeight->price;
             }
         }
     }
 
     echo str_pad("\n", $totalLineWidth, "-", STR_PAD_LEFT);
-    echo strtoupper("Summe" . "    EUR  " . number_format($priceSum / 100, 2, ",") . "\n");
+    echo strtoupper("Summe" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad("", 7, " ", STR_PAD_LEFT) . number_format($priceSum / 100, 2, ",") . "\n");
     echo str_pad("\n\n\n", $totalLineWidth + 2, "=", STR_PAD_LEFT);
-    #echo "Geg. BAR: ";
-    #$payedInCache = trim(fgets(STDIN));
-    #echo "Geg. BAR          EUR     " . number_format($payedInCache, 2, ",") . "\n";
-    #echo "Rückgeld BAR          EUR     " . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
+    echo "Geg. BAR: ";
+    $payedInCache = trim(fgets(STDIN));
+    echo "Geg. BAR" . str_pad("EUR", 22, " ", STR_PAD_LEFT) . str_pad("", 7, " ", STR_PAD_LEFT) . number_format($payedInCache, 2, ",") . "\n";
+    echo "Rückgeld BAR" . str_pad("EUR", 18, " ", STR_PAD_LEFT) . str_pad("", 8, " ", STR_PAD_LEFT) . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
 
     echo str_pad("\n", $totalLineWidth, "*", STR_PAD_LEFT);
