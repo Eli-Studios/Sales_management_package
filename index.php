@@ -1,10 +1,12 @@
-﻿<?php
+﻿﻿<?php
     //Importing all relevant classes and functions
     require_once 'Products.php';
     require_once 'SoldByPiece.php';
     require_once 'SoldByWeight.php';
     require_once 'Drinks.php';
     require_once 'Factory.php';
+    require_once 'PriceSumOperations.php';
+    require_once 'PriceSumGermany.php';
 
     //Variables | First declaration and initialization
     $priceSum = 0;
@@ -24,40 +26,58 @@
         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
-    function getProductNameLength(string $name) : int
+    #TODO: Functions in --> functions.inc.php
+    function getProductNameLength(string $name): int
     {
-        return strlen($name);
+        return mb_strlen($name, "UTF-8");
     }
 
     function getLongestProductName (array $basket): int
     {
-        foreach ($basket as $key => $value) {
-            $longest = max($basket);
-        }
-
-        return (int)$longest;
+        $lengths = array_map('strlen', array_keys($basket));
+        return !empty($lengths) ? max($lengths) : 0;
     }
 
+    function printLine(int $totalLineWidth, string $character): void
+    {
+        echo str_repeat($character, $totalLineWidth) . PHP_EOL;
+    }
 
-//Program logic
+    function containsUmlauts(string $prefix) {
+        $chars = str_split($prefix);
+
+        $containsUmlauts = 0;
+        foreach ($chars as $char) {
+            switch ($char) {
+                case 'Ä' || 'ä' || 'Ö' || 'ö' || 'Ü' || 'ü':
+                    $containsUmlauts = 1;
+                    break;
+                default:
+                    $containsUmlauts = 0;
+            }
+        }
+
+        return $containsUmlauts;
+    }
+
+    //Program logic
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
         $productNameLength = getProductNameLength($name);
-        $totalLineWidth = getLongestProductName($basket) + 44;
+        $totalLineWidth = getLongestProductName($basket) + 24;
         #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
         #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
         # objects need a more specific  name (currently just the class name :()
         $product->output($product, $totalLineWidth, $productNameLength);
-        $drinks = null;
-        $priceSum += $product->price + ($drinks ? $drinks->deposit : 0);
+        $priceSum += $product->price;
     }
 
-    echo str_pad("\n", $totalLineWidth, "-", STR_PAD_LEFT);
-    echo strtoupper("Summe" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad("", 7, " ", STR_PAD_LEFT) . number_format($priceSum / 100, 2, ",") . "\n");
-    echo str_pad("\n\n\n", $totalLineWidth + 2, "=", STR_PAD_LEFT);
-    echo "Geg. BAR: ";
-    $payedInCache = trim(fgets(STDIN));
-    echo "Geg. BAR" . str_pad("EUR", 22, " ", STR_PAD_LEFT) . str_pad("", 7, " ", STR_PAD_LEFT) . number_format($payedInCache, 2, ",") . "\n";
-    echo "Rückgeld BAR" . str_pad("EUR", 18, " ", STR_PAD_LEFT) . str_pad("", 8, " ", STR_PAD_LEFT) . number_format($payedInCache - $priceSum / 100, 2, ",") . "\n";
-
-    echo str_pad("\n", $totalLineWidth, "*", STR_PAD_LEFT);
+    printLine($totalLineWidth, "-");
+    $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
+    echo $priceSums[0]->printPriceSum($totalLineWidth);
+    printLine($totalLineWidth, "=");
+    echo "Geg. BAR" . str_pad("EUR", 19, " ", STR_PAD_LEFT) . str_pad(" ", 16, " ", STR_PAD_LEFT);
+    $payment = str_replace(",", ".", readline());
+    $change = $payment * 100 - $priceSum;
+    $priceSums[] = new PriceSumGermany($change, "Rückgeld BAR");
+    echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR");

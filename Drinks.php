@@ -6,6 +6,7 @@ class Drinks extends SoldByPiece
 {
     public int $depositPerPiece;
     public int $deposit;
+    public string $depositLabel;
 
     function calculatePrice(): int
     {
@@ -19,11 +20,13 @@ class Drinks extends SoldByPiece
 
     public function output($object, $totalLineWidth, $productNameLength): void
     {
-        echo "  PFAND " . number_format($object->depositPerPiece / 100, 2, ",") . " EUR "
+        parent::output($object, $totalLineWidth, $productNameLength);
+        echo  $this->depositLabel
             . str_pad(number_format($object->deposit / 100, 2, ",")
-                . $object->taxClass . "\n", $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
-        echo "  " . $object->amount . " Stk x" . "   "
+                . " " . $object->taxClass . "\n", $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
+        echo "  " . $object->amount . " Stk x" . "    "
             . number_format($object->depositPerPiece / 100, 2, ",") . "\n";
+        $this->price = $this->price + $this->deposit;
     }
 
     public function __construct(string $name, array $data)
@@ -32,5 +35,6 @@ class Drinks extends SoldByPiece
         $this->price = $this->calculatePrice();
         $this->depositPerPiece = $data["depositPerPiece"];
         $this->deposit = $this->calculateDeposit();
+        $this->depositLabel = "PFAND " . number_format($this->deposit / 100, 2, ",") . " EUR";
     }
 }
