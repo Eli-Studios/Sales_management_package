@@ -4,6 +4,7 @@
     require_once 'SoldByPiece.php';
     require_once 'SoldByWeight.php';
     require_once 'Drinks.php';
+    require_once 'Factory.php';
 
     //Variables | First declaration and initialization
     $priceSum = 0;
@@ -40,34 +41,15 @@
 
 //Program logic
     foreach ($basket as $name => $data) {
-        foreach ($data as $property => $value) {
-            switch ($property) {
-                case 'amount':
-                    $soldByPiece = new SoldByPiece($name, $data);
-                    $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket) + 44;
-                    #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
-                    #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
-                    # objects need a more specific  name (currently just the class name :()
-                    $soldByPiece->output($soldByPiece, $totalLineWidth, $productNameLength);
-                    $drinks = null;
-                    foreach ($data as $property => $value) {
-                        if ($property == 'depositPerPiece') {
-                            $drinks = new Drinks($name, $data);
-                            $drinks->output($drinks, $totalLineWidth, $productNameLength);
-                        }
-                    }
-
-                    $priceSum += $soldByPiece->price + ($drinks ? $drinks->deposit : 0);
-                break;
-                case 'weight':
-                    $soldByWeight = new SoldByWeight($name, $data); //Das hier muss auch für 52 gelten!!
-                    $productNameLength = getProductNameLength($name);
-                    $totalLineWidth = getLongestProductName($basket) + 44;
-                    $soldByWeight->output($soldByWeight, $totalLineWidth, $productNameLength);
-                    $priceSum += $soldByWeight->price;
-            }
-        }
+        $product = Factory::createProduct($name, $data);
+        $productNameLength = getProductNameLength($name);
+        $totalLineWidth = getLongestProductName($basket) + 44;
+        #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
+        #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
+        # objects need a more specific  name (currently just the class name :()
+        $product->output($product, $totalLineWidth, $productNameLength);
+        $drinks = null;
+        $priceSum += $product->price + ($drinks ? $drinks->deposit : 0);
     }
 
     echo str_pad("\n", $totalLineWidth, "-", STR_PAD_LEFT);
