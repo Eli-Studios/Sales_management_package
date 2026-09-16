@@ -7,10 +7,21 @@
     require_once 'Factory.php';
     require_once 'PriceSumOperations.php';
     require_once 'PriceSumGermany.php';
+    require_once 'SalesReceiptTemplate.php';
 
     //Variables | First declaration and initialization
     $priceSum = 0;
     $taxPercentage = ['A' => 0.19, 'B' => 0.07];
+    $taxClass = ['A' => 0.19, 'B' => 0.7];
+
+    $receiptTemplateData = [
+            'companyName' => "REWE",
+            'street' => "Schorndorfer Str. 7",
+            'zipCode' => 73066,
+            'city' => "Uhingen",
+            'phoneNumber' => "07164-5060346",
+            'vatID' => "DE812706034"];
+
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
@@ -60,6 +71,9 @@
         return $containsUmlauts;
     }
 
+    $salesReceipt = new SalesReceiptTemplate($receiptTemplateData);
+    $salesReceipt->outputHeader();
+
     //Program logic
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
@@ -76,7 +90,7 @@
     $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
     echo $priceSums[0]->printPriceSum($totalLineWidth);
     printLine($totalLineWidth, "=");
-    echo "Geg. BAR" . str_pad("EUR", 17, " ", STR_PAD_LEFT) . str_pad(" ", 16, " ", STR_PAD_LEFT);
+    echo "Geg. BAR" . str_pad("EUR", 19, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
     $payment = str_replace(",", ".", readline());
     $change = $payment * 100 - $priceSum;
     $priceSums[] = new PriceSumGermany($change, "Rückgeld BAR");
