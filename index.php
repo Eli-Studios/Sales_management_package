@@ -76,7 +76,7 @@
     $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
     echo $priceSums[0]->printPriceSum($totalLineWidth);
     printLine($totalLineWidth, "=");
-    echo "Geg. BAR" . str_pad("EUR", 19, " ", STR_PAD_LEFT) . str_pad(" ", 16, " ", STR_PAD_LEFT);
+    echo "Geg. BAR" . str_pad("EUR", 17, " ", STR_PAD_LEFT) . str_pad(" ", 16, " ", STR_PAD_LEFT);
     $payment = str_replace(",", ".", readline());
     $change = $payment * 100 - $priceSum;
     $priceSums[] = new PriceSumGermany($change, "Rückgeld BAR");

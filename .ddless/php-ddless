@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+#
+# DDLess CLI Debug Wrapper
+#
+# Usage: .ddless/php-ddless [--host=<ip>] <port> <script> [args...]
+# Example: .ddless/php-ddless 8001 artisan test --filter=UserTest
+# Example: .ddless/php-ddless --host=192.168.0.8 8001 artisan test
+#
+# Options:
+#   --host=<ip>  Host to connect to (default: 127.0.0.1)
+#                Use this when running inside Docker/WSL to reach the host machine.
+#
+# Requires: curl, and a DDLess listener active on the specified port.
+
+# Parse --host option
+HOST="127.0.0.1"
+if [[ "$1" == --host=* ]]; then
+  HOST="${1#--host=}"
+  shift
+fi
+
+if [ $# -lt 2 ]; then
+  echo "Usage: .ddless/php-ddless [--host=<ip>] <port> <script> [args...]" >&2
+  echo "Example: .ddless/php-ddless 8001 artisan test" >&2
+  echo "Example: .ddless/php-ddless --host=192.168.0.8 8001 artisan test" >&2
+  exit 1
+fi
+
+PORT="$1"
+shift
+
+# Build JSON args array: ["arg1", "arg2", ...]
+JSON_ARGS="["
+FIRST=true
+for arg in "$@"; do
+  # Escape special JSON characters
+  escaped=$(printf '%s' "$arg" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\n/\\n/g')
+  if [ "$FIRST" = true ]; then
+    JSON_ARGS="${JSON_ARGS}\"${escaped}\""
+    FIRST=false
+  else
+    JSON_ARGS="${JSON_ARGS},\"${escaped}\""
+  fi
+done
+JSON_ARGS="${JSON_ARGS}]"
+
+BODY="{\"args\":${JSON_ARGS}}"
+
+# Temp files for exit code and curl errors
+EXIT_FILE="/tmp/.ddless-exit-$$"
+CURL_ERR="/tmp/.ddless-curl-err-$$"
+rm -f "$EXIT_FILE" "$CURL_ERR"
+
+# Cleanup on exit
+cleanup() {
+  rm -f "$EXIT_FILE" "$CURL_ERR"
+}
+trap cleanup EXIT
+
+# Make HTTP POST and stream NDJSON response
+# -s: silent (no progress), -S: show errors, -N: no buffering
+# stderr goes to temp file for error detection
+curl -sSN -X POST "http://${HOST}:${PORT}/__ddless/cli" \
+  -H "Content-Type: application/json" \
+  -d "$BODY" \
+  --max-time 0 \
+  2>"$CURL_ERR" | while IFS= read -r line; do
+  # Skip empty lines
+  [ -z "$line" ] && continue
+
+  # Parse NDJSON — extract type field
+  TYPE=""
+  if [[ "$line" =~ \"type\":\"([^\"]+)\" ]]; then
+    TYPE="${BASH_REMATCH[1]}"
+  fi
+
+  case "$TYPE" in
+    stdout)
+      if [[ "$line" =~ \"data\":\"(([^\"\\]|\\.)*)\" ]]; then
+        printf '%b' "${BASH_REMATCH[1]}"
+      fi
+      ;;
+    stderr)
+      if [[ "$line" =~ \"data\":\"(([^\"\\]|\\.)*)\" ]]; then
+        printf '%b' "${BASH_REMATCH[1]}" >&2
+      fi
+      ;;
+    breakpoint)
+      BP_FILE=""
+      BP_LINE=""
+      if [[ "$line" =~ \"file\":\"([^\"]+)\" ]]; then
+        BP_FILE="${BASH_REMATCH[1]}"
+      fi
+      if [[ "$line" =~ \"line\":([0-9]+) ]]; then
+        BP_LINE="${BASH_REMATCH[1]}"
+      fi
+      echo ""
+      if [ -n "$BP_FILE" ] && [ -n "$BP_LINE" ]; then
+        echo "Breakpoint hit at ${BP_FILE}:${BP_LINE}"
+      else
+        echo "Breakpoint hit"
+      fi
+      echo "→ Paused in DDLess UI"
+      echo ""
+      ;;
+    exit)
+      if [[ "$line" =~ \"code\":([0-9]+) ]]; then
+        echo "${BASH_REMATCH[1]}" > "$EXIT_FILE"
+      fi
+      ;;
+  esac
+done
+
+# Check pipe status (curl is first command in pipe)
+CURL_EXIT="${PIPESTATUS[0]:-0}"
+
+# If curl failed, show a helpful error message
+if [ "$CURL_EXIT" -ne 0 ]; then
+  CURL_MSG=""
+  if [ -f "$CURL_ERR" ]; then
+    CURL_MSG=$(cat "$CURL_ERR")
+  fi
+
+  echo "" >&2
+  echo "Error: Could not connect to DDLess at ${HOST}:${PORT}." >&2
+  echo "" >&2
+
+  if echo "$CURL_MSG" | grep -qi "refused\|reset\|connect"; then
+    echo "Possible causes:" >&2
+    echo "  - DDLess is not running or the listener is not active" >&2
+    echo "  - The port ${PORT} does not match your project configuration" >&2
+    if [ "$HOST" = "127.0.0.1" ]; then
+      echo "  - If running inside Docker/WSL, use --host to reach the host machine:" >&2
+      echo "    .ddless/php-ddless --host=<your-host-ip> ${PORT} <script>" >&2
+    fi
+  else
+    echo "curl error: ${CURL_MSG:-unknown}" >&2
+  fi
+  exit 1
+fi
+
+# Retrieve exit code from PHP process
+EXIT_CODE=0
+if [ -f "$EXIT_FILE" ]; then
+  EXIT_CODE=$(cat "$EXIT_FILE")
+fi
+
+exit "$EXIT_CODE"
