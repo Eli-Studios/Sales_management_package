@@ -8,20 +8,32 @@
     require_once 'PriceSumOperations.php';
     require_once 'PriceSumGermany.php';
     require_once 'SalesReceiptTemplate.php';
+    require_once 'Header.php';
+    require_once 'TaxTable.php';
+    require_once 'Footer.php';
 
     //Variables | First declaration and initialization
     $priceSum = 0;
-    $taxPercentage = ['A' => 0.19, 'B' => 0.07];
-    $taxClass = ['A' => 0.19, 'B' => 0.7];
+    $taxClass = ['A' => 19, 'B' => 7];
+    $aBrutto = 0;
+    $bBrutto = 0;
 
-    $receiptTemplateData = [
+    $headerData = [
             'companyName' => "REWE",
             'street' => "Schorndorfer Str. 7",
             'zipCode' => 73066,
             'city' => "Uhingen",
             'phoneNumber' => "07164-5060346",
             'vatID' => "DE812706034"];
-
+    $footerData = [
+            'row1' => [
+                'Date' => date("d.m.Y"),
+                'Time' => date("H:i"),
+                'ChangeNumber' => "Bon-Nr.:9082"],
+            'row2' => [
+                'Market' => "Markt:0215",
+                'TillNumber' => "Kasse:3",
+                'Cashier' => "Bed.:141414"]];
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
@@ -71,8 +83,8 @@
         return $containsUmlauts;
     }
 
-    $salesReceipt = new SalesReceiptTemplate($receiptTemplateData);
-    $salesReceipt->outputHeader();
+    $salesReceipt = new Header($headerData);
+    $salesReceipt->output();
 
     //Program logic
     foreach ($basket as $name => $data) {
@@ -84,6 +96,12 @@
         # objects need a more specific  name (currently just the class name :()
         $product->output($product, $totalLineWidth, $productNameLength);
         $priceSum += $product->price;
+
+        match ($product->taxClass) {
+            'A' => $aBrutto += $product->price,
+            'B' => $bBrutto += $product->price,
+            default => error_log("Invalid tax class: $product->taxClass"),
+        };
     }
 
     printLine($totalLineWidth, "-");
@@ -93,5 +111,13 @@
     echo "Geg. BAR" . str_pad("EUR", 19, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
     $payment = str_replace(",", ".", readline());
     $change = $payment * 100 - $priceSum;
-    $priceSums[] = new PriceSumGermany($change, "Rückgeld BAR");
-    echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR");
+    $priceSums[] = new PriceSumGermany($change, "Rückgeld");
+    echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR") . PHP_EOL;
+
+    $taxTable = new TaxTable($taxClass, $aBrutto, $bBrutto);
+    $taxTable->output($taxClass);
+
+    $footer = new Footer($footerData);
+    $footer->output($footerData);
+
+    printLine($totalLineWidth, "*");
