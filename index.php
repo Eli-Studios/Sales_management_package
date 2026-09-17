@@ -19,21 +19,20 @@
     $bBrutto = 0;
 
     $headerData = [
-            'companyName' => "REWE",
-            'street' => "Schorndorfer Str. 7",
-            'zipCode' => 73066,
-            'city' => "Uhingen",
-            'phoneNumber' => "07164-5060346",
-            'vatID' => "DE812706034"];
+            'companyName' => str_pad("REWE", 55, " ", STR_PAD_BOTH),
+            'street' => str_pad("Schorndorfer Str. 7", 55, " ", STR_PAD_BOTH),
+            'city' => str_pad("73066 Uhingen", 55, " ", STR_PAD_BOTH),
+            'phoneNumber' => str_pad("07164-5060346", 55, " ", STR_PAD_BOTH),
+            'vatID' => str_pad("UID Nr.:" . "DE812706034", 55, " ", STR_PAD_BOTH)];
     $footerData = [
             'row1' => [
                 'Date' => date("d.m.Y"),
                 'Time' => date("H:i"),
-                'ChangeNumber' => "Bon-Nr.:9082"],
+                'ChangeNumber' => "Bon-Nr.:" . "9082"],
             'row2' => [
-                'Market' => "Markt:0215",
-                'TillNumber' => "Kasse:3",
-                'Cashier' => "Bed.:141414"]];
+                'Market' => "Markt:" . "0215",
+                'TillNumber' => "Kasse:" . "3",
+                'Cashier' => "Bed.:" . "141414"]];
 
     //My data array that contains all the products and it's data a customer wants to buy
     $basket = [
@@ -63,7 +62,7 @@
 
     function printLine(int $totalLineWidth, string $character): void
     {
-        echo str_repeat($character, $totalLineWidth) . PHP_EOL;
+        echo str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
     }
 
     function containsUmlauts(string $prefix) {
@@ -90,7 +89,7 @@
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
         $productNameLength = getProductNameLength($name);
-        $totalLineWidth = getLongestProductName($basket) + 24;
+        $totalLineWidth = getLongestProductName($basket) + 30;
         #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
         #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
         # objects need a more specific  name (currently just the class name :()
@@ -108,7 +107,7 @@
     $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
     echo $priceSums[0]->printPriceSum($totalLineWidth);
     printLine($totalLineWidth, "=");
-    echo "Geg. BAR" . str_pad("EUR", 19, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
+    echo "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
     $payment = str_replace(",", ".", readline());
     $change = $payment * 100 - $priceSum;
     $priceSums[] = new PriceSumGermany($change, "Rückgeld");
