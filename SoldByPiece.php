@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Products.php';
-
 class SoldByPiece extends Products
 {
     public int $amount;

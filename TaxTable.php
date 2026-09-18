@@ -13,17 +13,15 @@ class TaxTable extends SalesReceiptTemplate
     public int $totalTax;
     public array $taxClass;
 
-    public function calculateTaxTable(array $taxClass)
+    public function calculateTaxTable(array $taxClass): array
     {
-        $taxTable = [
+        return $taxTable = [
                 ["Steuer  %", "Netto", "Steuer", "Brutto"],
                 ["A= ". str_pad(number_format($taxClass['A'], 1, ",") . "%", 9 - strlen($taxClass['A'] * 100),
         " ", STR_PAD_LEFT), 'Netto' => $this->aNetto / 100, 'Steuer' => $this->aTax / 100, 'Brutto' => $this->aBrutto / 100],
                 ["B=". str_pad(number_format($taxClass['B'], 1, ",") . "%", 9 - strlen($taxClass['B'] * 100),
         " ", STR_PAD_LEFT), 'Netto' => $this->bNetto / 100, 'Steuer' => $this->bTax / 100, 'Brutto'=> $this->bBrutto / 100],
                 ['Gesamtbetrag', 'Netto' => $this->totalNetto / 100, 'Steuer' => $this->totalTax / 100, 'Brutto' => $this->totalBrutto / 100]];
-
-        return $taxTable;
     }
 
     public function output(): void
