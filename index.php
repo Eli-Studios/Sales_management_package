@@ -91,6 +91,20 @@
         return $containsUmlauts;
     }
 
+    function printSum($totalLineWidth, $priceSum) {
+        printLine($totalLineWidth, "-");
+        $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
+        echo $priceSums[0]->printPriceSum($totalLineWidth);
+        printLine($totalLineWidth, "=");
+        echo "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
+        $payment = str_replace(",", ".", readline());
+        $change = $payment * 100 - $priceSum;
+        $priceSums[] = new PriceSumGermany($change, "Rückgeld");
+        echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR") . PHP_EOL;
+    }
+
+    /*Printing the header of the change including the company name,
+      the address, the phone number and the VAT-ID*/
     $salesReceipt = new Header($headerData);
     $salesReceipt->output();
 
@@ -99,9 +113,6 @@
         $product = Factory::createProduct($name, $data);
         $productNameLength = getProductNameLength($name);
         $totalLineWidth = getLongestProductName($basket) + 30;
-        #TODO: PHP-Klasse zur Formatierung von Nummern (https://www.php.net/manual/de/class.numberformatter.php)
-        #TODO: Factory, no seperate methods that have the same principles (--> deposit as a seperate object), drinks as a seperate class,
-        # objects need a more specific  name (currently just the class name :()
         $product->output($product, $totalLineWidth, $productNameLength);
         $priceSum += $product->price;
 
@@ -112,15 +123,8 @@
         };
     }
 
-    printLine($totalLineWidth, "-");
-    $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
-    echo $priceSums[0]->printPriceSum($totalLineWidth);
-    printLine($totalLineWidth, "=");
-    echo "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
-    $payment = str_replace(",", ".", readline());
-    $change = $payment * 100 - $priceSum;
-    $priceSums[] = new PriceSumGermany($change, "Rückgeld");
-    echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR") . PHP_EOL;
+    //Printing the footer including the 'sum'-section and the metadata of the change
+    printSum($totalLineWidth, $priceSum);
 
     $taxTable = new TaxTable($taxClass, $aBrutto, $bBrutto);
     $taxTable->output($taxClass);
