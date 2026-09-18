@@ -11,6 +11,7 @@
     require_once 'Header.php';
     require_once 'TaxTable.php';
     require_once 'Footer.php';
+    require_once 'TSE.php';
 
     //Variables | First declaration and initialization
     $priceSum = 0;
@@ -34,11 +35,12 @@
                 'TillNumber' => "Kasse:" . "3",
                 'Cashier' => "Bed.:" . "141414"]];
     $tseData = [
-            'TSE-Signatur' => "ecbCiBu2akyi0bffd4ke71xUj99Y9vdk0AB+/T1iHKn9if4HDNSEPLO9Mtd+rUNJWta/3MTugzP7SS+v2IzPStVt18s36sPkCpPE9zgxGeRKa336e+XSeypfyfnin",
-            'TSE-Signaturzähler' => "2358647 ",
+            'TSE-Signatur' => wordwrap("ecbCiBu2akyi0bffd4ke71xUj99Y9vdk0AB+/T1iHKn9if4HDNSEPLO9Mtd+rUNJWta/3MTugzP7SS+v2IzPStVt18s36sPkCpPE9zgxGeRKa336e+XSeypfyfnin",
+                        33, PHP_EOL . str_repeat(" ", 20), true),
+            'TSE-Signaturzähler' => "2358647",
             'TSE-Transaktion' => "1113623",
-            'TSE-Start' => "2024-10-12110:42:33.000",
-            'TSE-Stop' => "2024-10-12110:43:16.000",
+            'TSE-Start' => "2024-10-12T10:42:33.000",
+            'TSE-Stop' => "2024-10-12T10:43:16.000",
             'Seriennummer Kasse' => "REWE:C0:03:5e-c9:12:00:00"];
 
     //My data array that contains all the products and it's data a customer wants to buy
@@ -122,6 +124,9 @@
 
     $taxTable = new TaxTable($taxClass, $aBrutto, $bBrutto);
     $taxTable->output($taxClass);
+
+    $tse = new TSE($tseData);
+    $tse->output();
 
     $footer = new Footer($footerData);
     $footer->output($footerData);

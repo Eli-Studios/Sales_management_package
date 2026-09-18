@@ -3,13 +3,20 @@
 class TSE extends SalesReceiptTemplate
 {
     public array $tseData;
+    public int $longestKey;
+
     public function output(): void
     {
-        // TODO: Implement output() method.
+        foreach($this->tseData as $key => $value)
+        {
+            echo mb_str_pad($key . ":", 20, " ", STR_PAD_RIGHT);
+            echo $value . PHP_EOL;
+        }
+        echo PHP_EOL;
     }
-
-    public function __contruct(array $tseData)
+    public function __construct(array $tseData)
     {
         $this->tseData = $tseData;
+        $this->longestKey = 0;
     }
 }

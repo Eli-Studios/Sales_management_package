@@ -10,7 +10,7 @@ class Footer extends SalesReceiptTemplate
         {
             foreach ($data as $value)
             {
-                echo str_pad(strval($value), 20, " ", STR_PAD_RIGHT);
+                echo " " . str_pad(strval($value), 20 - 2, " ", STR_PAD_RIGHT);
             }
             echo "\n";
         }
