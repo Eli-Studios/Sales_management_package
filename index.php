@@ -62,9 +62,7 @@
 
     /*Printing the header of the change including the company name,
       the address, the phone number and the VAT-ID*/
-    #TODO: Static method???
-    $salesReceipt = new Header($headerData);
-    $salesReceipt->output();
+    new Header($headerData)->output();
 
     //Program logic
     foreach ($basket as $name => $data) {
@@ -84,13 +82,10 @@
     //Printing the footer including the 'sum'-section and the metadata of the change
     printSum($totalLineWidth, $priceSum);
 
-    $taxTable = new TaxTable($taxClass, $aBrutto, $bBrutto);
-    $taxTable->output($taxClass);
+    new TaxTable($taxClass, $aBrutto, $bBrutto)->output();
 
-    $tse = new TSE($tseData);
-    $tse->output();
+    new TSE($tseData)->output();
 
-    $footer = new Footer($footerData);
-    $footer->output($footerData);
+    new Footer($footerData)->output();
 
     printLine($totalLineWidth, "*");
