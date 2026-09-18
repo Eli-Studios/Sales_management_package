@@ -7,7 +7,6 @@
     require_once 'Factory.php';
     require_once 'PriceSumOperations.php';
     require_once 'PriceSumGermany.php';
-    require_once 'ChangePriceSumGermany.php';
     require_once 'SalesReceiptTemplate.php';
     require_once 'Header.php';
     require_once 'TaxTable.php';
@@ -47,7 +46,7 @@
             'TSE-Stop' => "2024-10-12T10:43:16.000",
             'Seriennummer Kasse' => "REWE:C0:03:5e-c9:12:00:00"];
 
-    //My data array that contains all the products and it's data a customer wants to buy
+    #My data array that contains all the products and it's data a customer wants to buy
     $basket = [
         'Schweinebraten' => ['weight' => 148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
         'Hae-Obersch.' => ['weight' => 369, 'pricePerKilogram' => 990, 'taxClass' => "B"],
@@ -63,6 +62,7 @@
 
     /*Printing the header of the change including the company name,
       the address, the phone number and the VAT-ID*/
+    #TODO: Static method???
     $salesReceipt = new Header($headerData);
     $salesReceipt->output();
 
