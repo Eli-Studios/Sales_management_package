@@ -1,6 +1,6 @@
 <?php
 
-class ChangePriceSumGermany extends PrintPriceSum
+class ChangePriceSumGermany extends PriceSumOperations
 {
     public function printPriceSum($totalLineWidth)
     {

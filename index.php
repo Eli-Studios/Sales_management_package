@@ -7,6 +7,7 @@
     require_once 'Factory.php';
     require_once 'PriceSumOperations.php';
     require_once 'PriceSumGermany.php';
+    require_once 'ChangePriceSumGermany.php';
     require_once 'SalesReceiptTemplate.php';
     require_once 'Header.php';
     require_once 'TaxTable.php';
@@ -21,6 +22,7 @@
     $aBrutto = 0;
     $bBrutto = 0;
 
+    //Data arrays
     $headerData = [
             'companyName' => str_pad("REWE", 55, " ", STR_PAD_BOTH),
             'street' => str_pad("Schorndorfer Str. 7", 55, " ", STR_PAD_BOTH),
