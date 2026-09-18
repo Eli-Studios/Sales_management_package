@@ -13,6 +13,8 @@
     require_once 'Footer.php';
     require_once 'TSE.php';
 
+    require_once 'functions.php';
+
     //Variables | First declaration and initialization
     $priceSum = 0;
     $taxClass = ['A' => 19, 'B' => 7];
@@ -57,52 +59,6 @@
         'Fanta Mango Drachenfrucht' => ['amount' => 2, 'pricePerPiece' => 119, 'taxClass' => "A", 'depositPerPiece' => 15],
         'Gemuesebuersten' => ['amount' => 1, 'pricePerPiece' => 600, 'taxClass' => "A"]];
 
-    #TODO: Functions in --> functions.inc.php
-    function getProductNameLength(string $name): int
-    {
-        return mb_strlen($name, "UTF-8");
-    }
-
-    function getLongestProductName (array $basket): int
-    {
-        $lengths = array_map('strlen', array_keys($basket));
-        return !empty($lengths) ? max($lengths) : 0;
-    }
-
-    function printLine(int $totalLineWidth, string $character): void
-    {
-        echo str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
-    }
-
-    function containsUmlauts(string $prefix) {
-        $chars = str_split($prefix);
-
-        $containsUmlauts = 0;
-        foreach ($chars as $char) {
-            switch ($char) {
-                case 'Ä' || 'ä' || 'Ö' || 'ö' || 'Ü' || 'ü':
-                    $containsUmlauts = 1;
-                    break;
-                default:
-                    $containsUmlauts = 0;
-            }
-        }
-
-        return $containsUmlauts;
-    }
-
-    function printSum($totalLineWidth, $priceSum) {
-        printLine($totalLineWidth, "-");
-        $priceSums[] = new PriceSumGermany($priceSum, "SUMME");
-        echo $priceSums[0]->printPriceSum($totalLineWidth);
-        printLine($totalLineWidth, "=");
-        echo "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
-        $payment = str_replace(",", ".", readline());
-        $change = $payment * 100 - $priceSum;
-        $priceSums[] = new PriceSumGermany($change, "Rückgeld");
-        echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR") . PHP_EOL;
-    }
-
     /*Printing the header of the change including the company name,
       the address, the phone number and the VAT-ID*/
     $salesReceipt = new Header($headerData);
@@ -111,8 +67,8 @@
     //Program logic
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
-        $productNameLength = getProductNameLength($name);
-        $totalLineWidth = getLongestProductName($basket) + 30;
+        $productNameLength = getNameLength($name);
+        $totalLineWidth = getLongestName($basket) + 30;
         $product->output($product, $totalLineWidth, $productNameLength);
         $priceSum += $product->price;
 
