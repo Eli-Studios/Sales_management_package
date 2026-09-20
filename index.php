@@ -22,12 +22,14 @@
     $aBrutto = 0;
     $bBrutto = 0;
 
+    date_default_timezone_set('Europe/Berlin');
+
     //Data arrays
     $headerData = [
             'companyName' => str_pad("REWE", 55, " ", STR_PAD_BOTH),
             'street' => str_pad("Schorndorfer Str. 7", 55, " ", STR_PAD_BOTH),
             'city' => str_pad("73066 Uhingen", 55, " ", STR_PAD_BOTH),
-            'phoneNumber' => str_pad("07164-5060346", 55, " ", STR_PAD_BOTH),
+            'phoneNumber' => str_pad("07161-5060346", 55, " ", STR_PAD_BOTH),
             'vatID' => str_pad("UID Nr.:" . "DE812706034", 55, " ", STR_PAD_BOTH)];
     $footerData = [
             'row1' => [
