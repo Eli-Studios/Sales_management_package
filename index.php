@@ -99,4 +99,4 @@
     $content['FooterLine'] = printLine($totalLineWidth, "*");
 
     saveLog($filename, $content);
-    incrementChangeNumberInLogFile(($changeNumber + 1));
+    incrementChangeNumberInLogFile($changeNumber + 1);
