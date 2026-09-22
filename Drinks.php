@@ -18,15 +18,21 @@ class Drinks extends SoldByPiece
         return $this->deposit = $this->amount * $this->depositPerPiece;
     }
 
-    public function output($object, $totalLineWidth, $productNameLength): void
+    public function output($object, $totalLineWidth, $productNameLength): string
     {
-        parent::output($object, $totalLineWidth, $productNameLength);
-        echo  $this->depositLabel
+        $tempContent = parent::output($object, $totalLineWidth, $productNameLength);
+        echo $this->depositLabel
+            . str_pad(number_format($object->deposit / 100, 2, ",")
+                . " " . $object->taxClass . "\n", $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
+        $tempContent .= $this->depositLabel
             . str_pad(number_format($object->deposit / 100, 2, ",")
                 . " " . $object->taxClass . "\n", $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
         echo "  " . $object->amount . " Stk x" . "    "
             . number_format($object->depositPerPiece / 100, 2, ",") . "\n";
-        $this->price = $this->price + $this->deposit;
+        $tempContent .= "  " . $object->amount . " Stk x" . "    "
+            . number_format($object->depositPerPiece / 100, 2, ",") . "\n";
+        $this->price += $this->deposit;
+        return $tempContent;
     }
 
     public function __construct(string $name, array $data)

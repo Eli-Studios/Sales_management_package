@@ -14,7 +14,7 @@
     require_once 'Footer.php';
     require_once 'TSE.php';
 
-    require_once 'functions.php';
+    require 'functions.php';
 
     //Variables | First declaration and initialization
     $priceSum = 0;
@@ -22,7 +22,7 @@
     $aBrutto = 0;
     $bBrutto = 0;
     $filename = createFilename("txt");
-    $data = "";
+    $content = [];
     $changeNumber = file_get_contents("ChangeNumber.txt");
 
 
@@ -69,14 +69,15 @@
 
     /*Printing the header of the change including the company name,
       the address, the phone number and the VAT-ID*/
-    new Header($headerData)->output();
+    $content['Header'] = new Header($headerData)->output();
 
+    $content['ProductList'] = "";
     //Program logic
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
         $productNameLength = getNameLength($name);
         $totalLineWidth = getLongestName($basket) + 30;
-        $product->output($product, $totalLineWidth, $productNameLength);
+        $content['ProductList'] .= $product->output($product, $totalLineWidth, $productNameLength);
         $priceSum += $product->price;
 
         match ($product->taxClass) {
@@ -87,15 +88,15 @@
     }
 
     //Printing the footer including the 'sum'-section and the metadata of the change
-    printSum($totalLineWidth, $priceSum);
+    $content['Sum'] = printSum($totalLineWidth, $priceSum);
 
-    new TaxTable($taxClass, $aBrutto, $bBrutto)->output();
+    $content['TaxTable'] = new TaxTable($taxClass, $aBrutto, $bBrutto)->output();
 
-    new TSE($tseData)->output();
+    $content['TSE'] = new TSE($tseData)->output();
 
-    new Footer($footerData)->output();
+    $content['Footer'] = new Footer($footerData)->output();
 
-    printLine($totalLineWidth, "*");
+    $content['FooterLine'] = printLine($totalLineWidth, "*");
 
-    saveLog($filename, $changeNumber);
+    saveLog($filename, $content);
     incrementChangeNumberInLogFile(($changeNumber + 1));

@@ -24,20 +24,24 @@ class TaxTable extends SalesReceiptTemplate
                 ['Gesamtbetrag', 'Netto' => $this->totalNetto / 100, 'Steuer' => $this->totalTax / 100, 'Brutto' => $this->totalBrutto / 100]];
     }
 
-    public function output(): void
+    public function output(): string
     {
         $taxTable = $this->calculateTaxTable($this->taxClass);
+        $tempContent = "";
 
         foreach ($taxTable as $row)
         {
             foreach ($row as $value)
             {
                 echo str_pad($value, 15, " ", STR_PAD_RIGHT);
+                $tempContent .= str_pad($value, 15, " ", STR_PAD_RIGHT);
             }
 
             echo "\n";
+            $tempContent .= "\n";
         }
         echo "\n\n";
+        return $tempContent .= "\n\n";
     }
 
     public function __construct(array $taxClass, int $aBrutto, int $bBrutto)

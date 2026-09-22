@@ -2,5 +2,5 @@
 
 abstract class SalesReceiptTemplate
 {
-    public abstract function output(): void;
+    public abstract function output(): string;
 }

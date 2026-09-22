@@ -8,13 +8,14 @@ class Header extends SalesReceiptTemplate
     public string $phoneNumber;
     public string $vatID;
 
-    public function output(): void
+    public function output(): string
     {
-        echo $this->companyName . "\n"
+        echo $tempContent = $this->companyName . "\n"
              . $this->street . "\n"
              . $this->city . "\n\n\n"
              . $this->phoneNumber . "\n"
              . $this->vatID . "\n\n";
+        return $tempContent;
     }
 
     public function __construct($input)
