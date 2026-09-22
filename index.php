@@ -21,6 +21,10 @@
     $taxClass = ['A' => 19, 'B' => 7];
     $aBrutto = 0;
     $bBrutto = 0;
+    $filename = createFilename("txt");
+    $data = "";
+    $changeNumber = file_get_contents("ChangeNumber.txt");
+
 
     date_default_timezone_set('Europe/Berlin');
 
@@ -35,7 +39,7 @@
             'row1' => [
                 'Date' => date("d.m.Y"),
                 'Time' => date("H:i"),
-                'ChangeNumber' => "Bon-Nr.:" . "9082"],
+                'ChangeNumber' => "Bon-Nr.:" . $changeNumber],
             'row2' => [
                 'Market' => "Markt:" . "0215",
                 'TillNumber' => "Kasse:" . "3",
@@ -92,3 +96,6 @@
     new Footer($footerData)->output();
 
     printLine($totalLineWidth, "*");
+
+    saveLog($filename, $changeNumber);
+    incrementChangeNumberInLogFile(($changeNumber + 1));

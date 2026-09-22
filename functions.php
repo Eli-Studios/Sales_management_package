@@ -43,3 +43,21 @@ function printSum($totalLineWidth, $priceSum) {
     $priceSums[] = new PriceSumGermany($change, "Rückgeld");
     echo $priceSums[1]->printPriceSum($totalLineWidth, "EUR") . PHP_EOL;
 }
+
+function createFilename($fileFormat): string {
+    $filename = date("d.m.Y") . "_" . date("H:i") . "_". "change-log-file" . ".$fileFormat";
+    return $filename;
+}
+
+function createContent($data) {
+    $tempContent = $data;
+    return $tempContent;
+}
+
+function incrementChangeNumberInLogFile($changeNumber) {
+    file_put_contents("ChangeNumber.txt", $changeNumber);
+}
+
+function saveLog($filename, $content) {
+    file_put_contents($filename, $content, FILE_APPEND);
+}
