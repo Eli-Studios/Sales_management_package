@@ -64,5 +64,5 @@ function saveLog($filename, $content): void
     if (is_array($content)) {
         $content = implode($content);
     }
-    file_put_contents($filename, $content);
+    file_put_contents("./logs/" . $filename, $content);
 }

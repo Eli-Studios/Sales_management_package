@@ -52,7 +52,6 @@
             'TSE-Start' => "2024-10-12T10:42:33.000",
             'TSE-Stop' => "2024-10-12T10:43:16.000",
             'Seriennummer Kasse' => "REWE:C0:03:5e-c9:12:00:00"];
-
     #My data array that contains all the products and it's data a customer wants to buy
     $basket = [
         'Schweinebraten' => ['weight' => 148, 'pricePerKilogram' => 1490, 'taxClass' => "B"],
