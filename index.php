@@ -25,8 +25,8 @@
     $content = [];
     $changeNumber = file_get_contents("ChangeNumber.txt");
 
-
-    date_default_timezone_set('Europe/Berlin');
+    //Sets the correct timezone
+    date_default_timezone_set(date_default_timezone_get());
 
     //Data arrays
     $headerData = [
