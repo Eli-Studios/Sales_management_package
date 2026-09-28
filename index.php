@@ -6,7 +6,6 @@
     require_once 'Drinks.php';
     require_once 'Factory.php';
     require_once 'PriceSumOperations.php';
-    #TODO:PriceSumGermany auch in functions.php einbinden
     require_once 'PriceSumGermany.php';
     require_once 'SalesReceiptTemplate.php';
     require_once 'Header.php';
