@@ -70,12 +70,12 @@
     $logContent['Header'] = new Header($headerData)->output();
 
     $logContent['ProductList'] = "";
+    $totalLineWidth = getLongestName($basket) + 30;
     //Program logic
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
         $productNameLength = getNameLength($name);
-        $totalLineWidth = getLongestName($basket) + 30;
-        $logContent['ProductList'] .= $product->output($product, $totalLineWidth, $productNameLength);
+        $logContent['ProductList'] .= $product->output($totalLineWidth, $productNameLength);
         $priceSum += $product->price;
 
         match ($product->taxClass) {

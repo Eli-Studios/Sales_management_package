@@ -16,6 +16,7 @@ function printLine(int $totalLineWidth, string $character): string
     return str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
 }
 
+#TODO: Is there a way to not print the user input again?
 function printSum($totalLineWidth, $priceSum): string
 {
     $tempLogContent = printLine($totalLineWidth, "-");
