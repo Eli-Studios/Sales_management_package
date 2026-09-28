@@ -2,20 +2,25 @@
 
 class Header extends SalesReceiptTemplate
 {
-    public string $companyName;
-    public string $street;
-    public string $city;
-    public string $phoneNumber;
-    public string $vatID;
+    private string $companyName;
+    private string $street;
+    private string $city;
+    private string $phoneNumber;
+    private string $vatID;
 
     public function output(): string
     {
-        echo $tempContent = $this->companyName . PHP_EOL
+        echo $this->companyName . PHP_EOL
              . $this->street . PHP_EOL
              . $this->city . PHP_EOL . PHP_EOL . PHP_EOL
              . $this->phoneNumber . PHP_EOL
              . $this->vatID . PHP_EOL . PHP_EOL;
-        return $tempContent;
+
+        return $this->companyName . PHP_EOL
+            . $this->street . PHP_EOL
+            . $this->city . PHP_EOL . PHP_EOL . PHP_EOL
+            . $this->phoneNumber . PHP_EOL
+            . $this->vatID . PHP_EOL . PHP_EOL;
     }
 
     public function __construct($input)
