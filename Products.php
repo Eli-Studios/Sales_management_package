@@ -3,8 +3,8 @@
 abstract class Products
 {
    protected string $name;
-   protected int $price;
-   protected string $taxClass;
+   public int $price;
+   public string $taxClass;
 
    public function output($object, $totalLineWidth, $productNameLength): string
    {

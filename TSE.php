@@ -2,8 +2,8 @@
 
 class TSE extends SalesReceiptTemplate
 {
-    public array $tseData;
-    public int $longestKey;
+    private array $tseData;
+    protected int $longestKey;
 
     public function output(): string
     {
