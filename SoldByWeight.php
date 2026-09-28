@@ -2,8 +2,8 @@
 
 class SoldByWeight extends Products
 {
-    public float $weight;
-    public int $pricePerKilogram;
+    private float $weight;
+    private int $pricePerKilogram;
     public function __construct(string $name, array $data)
     {
         parent::__construct($name, $data);

@@ -2,16 +2,16 @@
 
 class TaxTable extends SalesReceiptTemplate
 {
-    public int $aNetto;
-    public int $aBrutto;
-    public int $bNetto;
-    public int $bBrutto;
-    public int $aTax;
-    public int $bTax;
-    public int $totalNetto;
-    public int $totalBrutto;
-    public int $totalTax;
-    public array $taxClass;
+    private int $aNetto;
+    private int $aBrutto;
+    private int $bNetto;
+    private int $bBrutto;
+    private int $aTax;
+    private int $bTax;
+    private int $totalNetto;
+    private int $totalBrutto;
+    private int $totalTax;
+    private array $taxClass;
 
     public function calculateTaxTable(array $taxClass): array
     {
@@ -34,8 +34,8 @@ class TaxTable extends SalesReceiptTemplate
         {
             foreach ($row as $value)
             {
-                echo str_pad($value, 15, " ", STR_PAD_RIGHT);
-                $tempLogContent .= str_pad($value, 15, " ", STR_PAD_RIGHT);
+                echo str_pad($value, 15);
+                $tempLogContent .= str_pad($value, 15);
             }
 
             echo PHP_EOL;

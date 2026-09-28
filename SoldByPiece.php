@@ -2,8 +2,8 @@
 
 class SoldByPiece extends Products
 {
-    public int $amount;
-    public int $pricePerPiece;
+    private int $amount;
+    private int $pricePerPiece;
     public function __construct(string $name, array $data)
     {
         parent::__construct($name, $data);
