@@ -2,7 +2,7 @@
 
 class Footer extends SalesReceiptTemplate
 {
-    public array $footerData;
+    private array $footerData;
 
     public function output(): string {
         $tempLogContent = "";

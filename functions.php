@@ -12,8 +12,8 @@ function getLongestName (array $basket): int
 
 function printLine(int $totalLineWidth, string $character): string
 {
-    echo $tempLogContent = str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
-    return $tempLogContent;
+    echo str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
+    return str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
 }
 
 function printSum($totalLineWidth, $priceSum): string

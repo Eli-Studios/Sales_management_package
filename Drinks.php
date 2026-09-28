@@ -2,9 +2,9 @@
 
 class Drinks extends SoldByPiece
 {
-    public int $depositPerPiece;
-    public int $deposit;
-    public string $depositLabel;
+    private int $depositPerPiece;
+    private int $deposit;
+    private string $depositLabel;
 
     public function output($object, $totalLineWidth, $productNameLength): string
     {
