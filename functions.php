@@ -34,7 +34,6 @@ function printSum($totalLineWidth, $priceSum): string
 }
 
 function createFilename($fileFormat): string {
-    date_default_timezone_set('Europe/Berlin');
     return date("H.i") . "_" . date("d.m.Y") . "_" . "change-log-file" . ".$fileFormat";
 }
 
