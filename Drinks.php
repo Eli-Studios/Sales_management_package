@@ -6,16 +6,6 @@ class Drinks extends SoldByPiece
     public int $deposit;
     public string $depositLabel;
 
-    function calculatePrice(): int
-    {
-        return $this->price = $this->amount * $this->pricePerPiece;
-    }
-
-    function calculateDeposit(): int
-    {
-        return $this->deposit = $this->amount * $this->depositPerPiece;
-    }
-
     public function output($object, $totalLineWidth, $productNameLength): string
     {
         $tempLogContent = parent::output($object, $totalLineWidth, $productNameLength);
@@ -36,9 +26,9 @@ class Drinks extends SoldByPiece
     public function __construct(string $name, array $data)
     {
         parent::__construct($name, $data);
-        $this->price = $this->calculatePrice();
+        $this->price = $this->amount * $this->pricePerPiece;
         $this->depositPerPiece = $data["depositPerPiece"];
-        $this->deposit = $this->calculateDeposit();
+        $this->deposit = $this->amount * $this->depositPerPiece;
         $this->depositLabel = "PFAND " . number_format($this->deposit / 100, 2, ",") . " EUR";
     }
 }
