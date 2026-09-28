@@ -12,9 +12,7 @@ abstract class PriceSumOperations
     }
     public function printPriceSum($totalLineWidth): string
     {
-        $containsUmlauts = containsUmlauts($this->prefix) + 1;
-        echo $tempContent = $this->prefix . str_pad($this->currency, ($totalLineWidth - 24 - mb_strlen($this->prefix, "UTF-8") + $containsUmlauts), " ", STR_PAD_LEFT);
-        return $tempContent;
+        echo $this->prefix . str_pad($this->currency, ($totalLineWidth - 24 - mb_strlen($this->prefix, "UTF-8")), " ", STR_PAD_LEFT);
+        return $this->prefix . str_pad($this->currency, ($totalLineWidth - 24 - mb_strlen($this->prefix, "UTF-8")), " ", STR_PAD_LEFT);
     }
-
 }

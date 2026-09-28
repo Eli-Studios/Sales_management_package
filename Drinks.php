@@ -1,7 +1,5 @@
 <?php
 
-require_once 'SoldByPiece.php';
-
 class Drinks extends SoldByPiece
 {
     public int $depositPerPiece;
@@ -20,19 +18,19 @@ class Drinks extends SoldByPiece
 
     public function output($object, $totalLineWidth, $productNameLength): string
     {
-        $tempContent = parent::output($object, $totalLineWidth, $productNameLength);
+        $tempLogContent = parent::output($object, $totalLineWidth, $productNameLength);
         echo $this->depositLabel
             . str_pad(number_format($object->deposit / 100, 2, ",")
-                . " " . $object->taxClass . "\n", $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
-        $tempContent .= $this->depositLabel
+                . " " . $object->taxClass . PHP_EOL, $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
+        $tempLogContent .= $this->depositLabel
             . str_pad(number_format($object->deposit / 100, 2, ",")
-                . " " . $object->taxClass . "\n", $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
+                . " " . $object->taxClass . PHP_EOL, $totalLineWidth - mb_strlen($this->depositLabel), " ", STR_PAD_LEFT);
         echo "  " . $object->amount . " Stk x" . "    "
-            . number_format($object->depositPerPiece / 100, 2, ",") . "\n";
-        $tempContent .= "  " . $object->amount . " Stk x" . "    "
-            . number_format($object->depositPerPiece / 100, 2, ",") . "\n";
+            . number_format($object->depositPerPiece / 100, 2, ",") . PHP_EOL;
+        $tempLogContent .= "  " . $object->amount . " Stk x" . "    "
+            . number_format($object->depositPerPiece / 100, 2, ",") . PHP_EOL;
         $this->price += $this->deposit;
-        return $tempContent;
+        return $tempLogContent;
     }
 
     public function __construct(string $name, array $data)

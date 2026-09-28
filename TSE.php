@@ -7,16 +7,16 @@ class TSE extends SalesReceiptTemplate
 
     public function output(): string
     {
-        $tempContent = "";
+        $tempLogContent = "";
         foreach($this->tseData as $key => $value)
         {
-            echo mb_str_pad($key . ":", 20, " ", STR_PAD_RIGHT);
-            $tempContent .= mb_str_pad($key . ":", 20, " ", STR_PAD_RIGHT);
+            echo mb_str_pad($key . ":", 20);
+            $tempLogContent = mb_str_pad($key . ":", 20);
             echo $value . PHP_EOL;
-            $tempContent .= $value . PHP_EOL;
+            $tempLogContent .= $value . PHP_EOL;
         }
         echo PHP_EOL;
-        return $tempContent .= PHP_EOL;
+        return $tempLogContent .= PHP_EOL;
     }
     public function __construct(array $tseData)
     {

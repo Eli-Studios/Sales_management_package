@@ -14,8 +14,8 @@ class Factory
                 $product = new SoldByWeight($name, $data);
                 break;
             default:
-                error_log("Unbekannter Produkttyp");
-                throw new InvalidArgumentException("Unbekannter Produkttyp: $name");
+                error_log("Unknown product type");
+                throw new InvalidArgumentException("Unknown product type: $name");
         }
         return $product;
     }

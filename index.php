@@ -22,7 +22,7 @@
     $aBrutto = 0;
     $bBrutto = 0;
     $filename = createFilename("txt");
-    $content = [];
+    $logContent = [];
     $changeNumber = file_get_contents("ChangeNumber.txt");
 
     //Sets the correct timezone
@@ -68,15 +68,15 @@
 
     /*Printing the header of the change including the company name,
       the address, the phone number and the VAT-ID*/
-    $content['Header'] = new Header($headerData)->output();
+    $logContent['Header'] = new Header($headerData)->output();
 
-    $content['ProductList'] = "";
+    $logContent['ProductList'] = "";
     //Program logic
     foreach ($basket as $name => $data) {
         $product = Factory::createProduct($name, $data);
         $productNameLength = getNameLength($name);
         $totalLineWidth = getLongestName($basket) + 30;
-        $content['ProductList'] .= $product->output($product, $totalLineWidth, $productNameLength);
+        $logContent['ProductList'] .= $product->output($product, $totalLineWidth, $productNameLength);
         $priceSum += $product->price;
 
         match ($product->taxClass) {
@@ -87,15 +87,15 @@
     }
 
     //Printing the footer including the 'sum'-section and the metadata of the change
-    $content['Sum'] = printSum($totalLineWidth, $priceSum);
+    $logContent['Sum'] = printSum($totalLineWidth, $priceSum);
 
-    $content['TaxTable'] = new TaxTable($taxClass, $aBrutto, $bBrutto)->output();
+    $logContent['TaxTable'] = new TaxTable($taxClass, $aBrutto, $bBrutto)->output();
 
-    $content['TSE'] = new TSE($tseData)->output();
+    $logContent['TSE'] = new TSE($tseData)->output();
 
-    $content['Footer'] = new Footer($footerData)->output();
+    $logContent['Footer'] = new Footer($footerData)->output();
 
-    $content['FooterLine'] = printLine($totalLineWidth, "*");
+    $logContent['FooterLine'] = printLine($totalLineWidth, "*");
 
-    saveLog($filename, $content);
+    saveLog($filename, $logContent);
     incrementChangeNumberInLogFile($changeNumber + 1);

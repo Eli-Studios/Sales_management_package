@@ -10,11 +10,11 @@ class Header extends SalesReceiptTemplate
 
     public function output(): string
     {
-        echo $tempContent = $this->companyName . "\n"
-             . $this->street . "\n"
-             . $this->city . "\n\n\n"
-             . $this->phoneNumber . "\n"
-             . $this->vatID . "\n\n";
+        echo $tempContent = $this->companyName . PHP_EOL
+             . $this->street . PHP_EOL
+             . $this->city . PHP_EOL . PHP_EOL . PHP_EOL
+             . $this->phoneNumber . PHP_EOL
+             . $this->vatID . PHP_EOL . PHP_EOL;
         return $tempContent;
     }
 
@@ -26,7 +26,7 @@ class Header extends SalesReceiptTemplate
             {
                 'companyName' => $this->companyName = $value,
                 'street' => $this->street = $value,
-                'city' => $this->city = $value,
+                'city' => $this->city = $value, PHP_EOL . PHP_EOL . PHP_EOL,
                 'phoneNumber' => $this->phoneNumber = $value,
                 'vatID' => $this->vatID = $value,
                 default => null,

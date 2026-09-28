@@ -5,18 +5,18 @@ class Footer extends SalesReceiptTemplate
     public array $footerData;
 
     public function output(): string {
-        $tempContent = "";
+        $tempLogContent = "";
         foreach ($this->footerData as $data)
         {
             foreach ($data as $value)
             {
-                echo " " . str_pad(strval($value), 20 - 2, " ", STR_PAD_RIGHT);
-                $tempContent .= " " . str_pad(strval($value), 20 - 2, " ", STR_PAD_RIGHT);
+                echo " " . str_pad(strval($value), 20 - 2);
+                $tempLogContent .= " " . str_pad(strval($value), 20 - 2);
             }
-            echo "\n";
-            $tempContent .= "\n";
+            echo PHP_EOL;
+            $tempLogContent .= PHP_EOL;
         }
-        return $tempContent;
+        return $tempLogContent;
     }
 
     public function __construct($footerData)

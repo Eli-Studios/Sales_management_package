@@ -26,22 +26,23 @@ class TaxTable extends SalesReceiptTemplate
 
     public function output(): string
     {
+        echo PHP_EOL;
+        $tempLogContent =  PHP_EOL;
         $taxTable = $this->calculateTaxTable($this->taxClass);
-        $tempContent = "";
 
         foreach ($taxTable as $row)
         {
             foreach ($row as $value)
             {
                 echo str_pad($value, 15, " ", STR_PAD_RIGHT);
-                $tempContent .= str_pad($value, 15, " ", STR_PAD_RIGHT);
+                $tempLogContent .= str_pad($value, 15, " ", STR_PAD_RIGHT);
             }
 
-            echo "\n";
-            $tempContent .= "\n";
+            echo PHP_EOL;
+            $tempLogContent .= PHP_EOL;
         }
         echo "\n\n";
-        return $tempContent .= "\n\n";
+        return $tempLogContent .= PHP_EOL . PHP_EOL;
     }
 
     public function __construct(array $taxClass, int $aBrutto, int $bBrutto)
