@@ -19,6 +19,7 @@ class Drinks extends SoldByPiece
             . number_format($this->depositPerPiece / 100, 2, ",") . PHP_EOL;
         $tempLogContent .= "  " . $this->amount . " Stk x" . "    "
             . number_format($this->depositPerPiece / 100, 2, ",") . PHP_EOL;
+        $this->price += $this->deposit;
         return $tempLogContent;
     }
 

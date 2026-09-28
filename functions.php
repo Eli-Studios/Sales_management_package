@@ -6,7 +6,7 @@ function getNameLength(string $name): int
 
 function getLongestName (array $basket): int
 {
-    $lengths = array_map('strlen', array_keys($basket));
+    $lengths = array_map('mb_strlen', array_keys($basket));
     return !empty($lengths) ? max($lengths) : 0;
 }
 
@@ -47,6 +47,10 @@ function saveLog($filename, $content): void
 {
     if (is_array($content)) {
         $content = implode($content);
+    }
+
+    if(!is_dir('./logs')) {
+        mkdir('./logs', 0755, true);
     }
     file_put_contents("./logs/" . $filename, $content);
 }
