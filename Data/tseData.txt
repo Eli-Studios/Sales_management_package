@@ -1,0 +1,7 @@
+['TSE-Signatur' => wordwrap("ecbCiBu2akyi0bffd4ke71xUj99Y9vdk0AB+/T1iHKn9if4HDNSEPLO9Mtd+rUNJWta/3MTugzP7SS+v2IzPStVt18s36sPkCpPE9zgxGeRKa336e+XSeypfyfnin",
+33, PHP_EOL . str_repeat(" ", 20), true),
+'TSE-Signaturzähler' => "2358647",
+'TSE-Transaktion' => "1113623",
+'TSE-Start' => "2024-10-12T10:42:33.000",
+'TSE-Stop' => "2024-10-12T10:43:16.000",
+'Seriennummer Kasse' => "REWE:C0:03:5e-c9:12:00:00"];

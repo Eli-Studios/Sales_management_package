@@ -1,0 +1,5 @@
+['companyName' => str_pad("REWE", 54, " ", STR_PAD_BOTH),
+'street' => str_pad("Schorndorfer Str. 6", 55, " ", STR_PAD_BOTH),
+'city' => str_pad("73065 Uhingen", 55, " ", STR_PAD_BOTH),
+'phoneNumber' => str_pad("07160-5060346", 55, " ", STR_PAD_BOTH),
+'vatID' => str_pad("UID Nr.:" . "DE812706033", 55, " ", STR_PAD_BOTH)]
