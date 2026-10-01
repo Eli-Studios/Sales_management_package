@@ -59,13 +59,18 @@ foreach ($basket as $name => $data) {
 //Printing the footer including the 'sum'-section and the metadata of the change
 $logContent['Sum'] = SalesReceiptTemplate::getLine($totalLineWidth, "-");
 
-$obj = new PriceSumGermany($priceSum, "SUMME", "EUR")->getPriceSum($totalLineWidth, $priceSum);
+$obj = new PriceSumGermany($priceSum, "SUMME", "EUR");
 
-$logContent['Sum'] .= $obj->getPriceSum($totalLineWidth, $priceSum);
+$logContent['Sum'] .= $obj->getPriceSum($totalLineWidth);
 
+echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 
+$arrLogContent = $obj->getChange();
 
-echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "="); 
+$logContent['Change'] = $arrLogContent[0];
+
+#TODO $logContent['Change']?
+echo $logContent['Change'] .= new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth) . PHP_EOL;
 
 $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 

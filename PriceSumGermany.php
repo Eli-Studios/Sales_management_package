@@ -6,15 +6,15 @@ class priceSumGermany extends PriceSumOperations
     {
         $tempLogContent = parent::getPriceSum($totalLineWidth);
         $tempLogContent .= str_pad(number_format($this->priceSum / 100, 2, ","),
-                $totalLineWidth - 33 - mb_strlen($this->currency, "UTF-8"), " ", STR_PAD_LEFT) . PHP_EOL;
+        $totalLineWidth - 33 - mb_strlen($this->currency, "UTF-8"), " ", STR_PAD_LEFT) . PHP_EOL;
         return $tempLogContent;
     }
     public function getChange(): array
     {
-        $tempLogContent .= "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
+        echo $tempLogContent = "Geg. BAR" . str_pad($this->currency, 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
         $payment = str_replace(",", ".", readline());
         $tempLogContent .= $payment . PHP_EOL;
-        $change = $payment * 100 - $priceSum;
+        $change = $payment * 100 - $this->priceSum;
 
         return [$tempLogContent, $change];
     }
