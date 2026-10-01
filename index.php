@@ -23,7 +23,7 @@ $bBrutto = 0;
 $filename = createFilename("txt");
 $logContent = [];
 $changeNumber = (int)(file_get_contents("ChangeNumber.txt")
-        ?: error_log("ChangeNumber.txt doesn't exist. 
+        ?? error_log("ChangeNumber.txt doesn't exist. 
         (That's the file in which Sales_managment writes the next Bon.Nr. for the next generated Bon.)"));
 
 //Sets the customerrect timezone

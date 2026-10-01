@@ -285,8 +285,7 @@ Two things should be backed up regularly:
 `logs/` contains the archived receipts. Keep them for as long as your tax
 rules require.
 
-If you reinstall or lose `ChangeNumber.txt`, the program logs an error and the
-receipt number stays at 0. To fix it, create the file with the number you want
+If you deleted or lose `ChangeNumber.txt`, the program logs an error. To fix it, create the file with the number you want
 to start from, for example `1`.
 
 ---
