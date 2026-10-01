@@ -27,11 +27,14 @@ $changeNumber = (int)(file_get_contents("ChangeNumber.txt")
         (That's the file in wgich Sales_managment writes the next Bon.Nr. for the next generated Bon.)"));
 
 //Sets the customerrect timezone
-(void)date_default_timezone_get();
+date_default_timezone_set(date_default_timezone_get());
 
 //Data arrays
 $headerData = json_decode(file_get_contents("./Data/headerData.json"), true);
 $footerData = json_decode(file_get_contents("./Data/footerData.json"), true);
+$footerData['row1']['Date'] = date('d.m.Y');
+$footerData['row1']['Time'] = date('H:i');
+$footerData['row1']['ChangeNumber'] .= file_get_contents("ChangeNumber.txt");
 $tseData = json_decode(file_get_contents("./Data/tseData.json"), true);
 #My data array that contains all the products and it's data a customer wants to buy
 $basket = json_decode(file_get_contents("./Data/basket.json"), true);
