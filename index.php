@@ -21,9 +21,14 @@ $taxRates = ['A' => 19, 'B' => 7];
 $aBrutto = 0;
 $bBrutto = 0;
 $logContent = [];
-$changeNumber = (int)(file_get_contents("ChangeNumber.txt")
-        ?? error_log("ChangeNumber.txt doesn't exist. 
-        (That's the file in which Sales_managment writes the next Bon.Nr. for the next generated Bon.)"));
+$changeNumberRaw = @file_get_contents("ChangeNumber.txt");
+if ($changeNumberRaw === false) {
+    error_log("ChangeNumber.txt doesn't exist.
+        (That's the file in which Sales_managment writes the next Bon.Nr. for the next generated Bon.)");
+    $changeNumber = 0;
+} else {
+    $changeNumber = (int)$changeNumberRaw;
+}
 $filename = createFilename("txt", $changeNumber);
 
 //Sets the customerrect timezone
@@ -34,7 +39,7 @@ $headerData = json_decode(file_get_contents("./Data/headerData.json"), true);
 $footerData = json_decode(file_get_contents("./Data/footerData.json"), true);
 $footerData['row1']['Date'] = date('d.m.Y');
 $footerData['row1']['Time'] = date('H:i');
-$footerData['row1']['ChangeNumber'] .= file_get_contents("ChangeNumber.txt");
+$footerData['row1']['ChangeNumber'] .= (string)$changeNumber;
 $tseData = json_decode(file_get_contents("./Data/tseData.json"), true);
 $basket = json_decode(file_get_contents("./Data/basket.json"), true);
 
