@@ -67,10 +67,10 @@ echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 
 $arrLogContent = $obj->getChange();
 
-$logContent['Change'] = $arrLogContent[0];
-
 #TODO $logContent['Change']?
-echo $logContent['Change'] .= new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth) . PHP_EOL;
+echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth) . PHP_EOL;
+
+$logContent['Change'] .= $arrLogContent[0];
 
 $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 
