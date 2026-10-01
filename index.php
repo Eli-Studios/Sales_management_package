@@ -30,11 +30,11 @@ $changeNumber = (int)(file_get_contents("ChangeNumber.txt")
 (void)date_default_timezone_get();
 
 //Data arrays
-$headerData = file_get_contents("./Data/headerData.txt");
-$footerData = file_get_contents("./Data/footerData.txt");
-$tseData = file_get_contents("./Data/tseData.txt");
+$headerData = json_decode(file_get_contents("./Data/headerData.json"), true);
+$footerData = json_decode(file_get_contents("./Data/footerData.json"), true);
+$tseData = json_decode(file_get_contents("./Data/tseData.json"), true);
 #My data array that contains all the products and it's data a customer wants to buy
-$basket = file_get_contents("./Data/basket.txt");
+$basket = json_decode(file_get_contents("./Data/basket.json"), true);
 
 /*Printing the header of the change including the company name,
   the address, the phone number and the VAT-ID*/
@@ -57,7 +57,11 @@ foreach ($basket as $name => $data) {
 }
 
 //Printing the footer including the 'sum'-section and the metadata of the change
-$logContent['Sum'] = printSum($totalLineWidth, $priceSum);
+$logContent['Sum'] = SalesReceiptTemplate::getLine($totalLineWidth, "-");
+
+$logContent['Sum'] .= new PriceSumGermany($priceSum, "SUMME", "EUR")->getPriceSum($totalLineWidth, $priceSum);
+
+echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 
 $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 
@@ -65,7 +69,7 @@ $logContent['TSE'] = new TSE($tseData)->output();
 
 $logContent['Footer'] = new Footer($footerData)->output();
 
-$logContent['FooterLine'] = printLine($totalLineWidth, "*");
+echo $logContent['FooterLine'] = SalesReceiptTemplate::getLine($totalLineWidth, "*");
 
 saveLog($filename, $logContent);
 incrementChangeNumberInLogFile($changeNumber + 1);

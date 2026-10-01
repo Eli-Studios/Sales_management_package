@@ -1,6 +1,0 @@
- ['row1' => ['Date' => date("d.m.Y"),
-            'Time' => date("H:i"),
-            'ChangeNumber' => "Bon-Nr.:" . $changeNumber],
-  'row2' => ['Market' => "Markt:" . "0215",
-            'TillNumber' => "Kasse:" . "3",
-            'Cashier' => "Bed.:" . "141414"]];

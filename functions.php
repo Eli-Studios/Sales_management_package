@@ -10,19 +10,9 @@ function getLongestName (array $basket): int
     return !empty($lengths) ? max($lengths) : 0;
 }
 
-function printLine(int $totalLineWidth, string $character): string
-{
-    echo str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
-    return str_repeat($character, $totalLineWidth - 2) . PHP_EOL;
-}
-
 #TODO: Is there a way to not print the user input again?
 function printSum($totalLineWidth, $priceSum): string
-{
-    $tempLogContent = printLine($totalLineWidth, "-");
-    $priceSums[0] = new PriceSumGermany($priceSum, "SUMME", "EUR");
-    $tempLogContent .= $priceSums[0]->printPriceSum($totalLineWidth);
-    $tempLogContent .= printLine($totalLineWidth, "=");
+{  
     echo "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
     $tempLogContent .= "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
     $payment = str_replace(",", ".", readline());

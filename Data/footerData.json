@@ -1,0 +1,12 @@
+{
+    "row1": {
+        "Date": "01.10.2026",
+        "Time": "08:20",
+        "ChangeNumber": "Bon-Nr.:5"
+    },
+    "row2": {
+        "Market": "Markt:0215",
+        "TillNumber": "Kasse:3",
+        "Cashier": "Bed.:141414"
+    }
+}
