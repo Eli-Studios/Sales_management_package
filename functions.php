@@ -1,18 +1,18 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
 
+#TODO: Make the function names and variables mor reusable.
 function getNameLength(string $name): int
 {
     return mb_strlen($name, "UTF-8");
 }
 
-function getLongestName (array $basket): int
+function getLongestName(array $array): int
 {
-    $lengths = array_map('mb_strlen', array_keys($basket));
+    $lengths = array_map('mb_strlen', array_keys($array));
     return !empty($lengths) ? max($lengths) : 0;
 }
 
-#TODO: Is there a way to not print the user input again?
 function printSum($totalLineWidth, $priceSum): string
 {  
     return $tempLogContent;

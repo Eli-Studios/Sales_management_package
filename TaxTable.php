@@ -16,20 +16,19 @@ class TaxTable extends SalesReceiptTemplate
     public function calculateTaxTable(array $taxClass): array
     {
         return [
-                ["Steuer  %", "Netto", "Steuer", "Brutto"],
+                ["Steuer %", "Netto", "Steuer", "Brutto"],
                 ["A= ". str_pad(number_format($taxClass['A'], 1, ",") . "%", 9 - strlen($taxClass['A'] * 100),
-        " ", STR_PAD_LEFT), 'Netto' => $this->aNetto / 100, 'Steuer' => $this->aTax / 100, 'Brutto' => $this->aBrutto / 100],
+        " ", STR_PAD_LEFT), 'Netto' => str_pad(number_format($this->aNetto / 100, 2, ","), 10 - strlen($this->aNetto * 100), " ", STR_PAD_LEFT), 'Steuer' => str_pad(number_format($this->aTax / 100, 2, ","), 11 - strlen($this->aTax * 100), " ", STR_PAD_LEFT), 'Brutto' => str_pad(number_format($this->aBrutto / 100, 2, ","), 12 - strlen($this->aBrutto * 100), " ", STR_PAD_LEFT)],
                 ["B=". str_pad(number_format($taxClass['B'], 1, ",") . "%", 9 - strlen($taxClass['B'] * 100),
-        " ", STR_PAD_LEFT), 'Netto' => $this->bNetto / 100, 'Steuer' => $this->bTax / 100, 'Brutto'=> $this->bBrutto / 100],
-                ['Gesamtbetrag', 'Netto' => $this->totalNetto / 100, 'Steuer' => $this->totalTax / 100, 'Brutto' => $this->totalBrutto / 100]];
+        " ", STR_PAD_LEFT), 'Netto' => str_pad(number_format($this->bNetto / 100, 2, ","), 10 - strlen($this->bNetto * 100), " ", STR_PAD_LEFT), 'Steuer' => str_pad(number_format($this->bTax / 100, 2, ","), 11 - strlen($this->bTax * 100), " ", STR_PAD_LEFT), 'Brutto'=> str_pad(number_format($this->bBrutto / 100, 2, ","), 12 - strlen($this->bBrutto * 100), " ", STR_PAD_LEFT)],
+                ['Gesamtbetrag', 'Netto' => str_pad(number_format($this->totalNetto / 100, 2, ","), 10 - strlen($this->totalNetto * 100), " ", STR_PAD_LEFT), 'Steuer' => str_pad(number_format($this->totalTax / 100, 2, ","), 11 - strlen($this->totalTax * 100), " ", STR_PAD_LEFT), 'Brutto' => str_pad(number_format($this->totalBrutto / 100, 2, ","), 12 - strlen($this->totalBrutto * 100), " ", STR_PAD_LEFT)]];
     }
 
     public function output(): string
     {
-        echo PHP_EOL;
-        $tempLogContent =  PHP_EOL;
         $taxTable = $this->calculateTaxTable($this->taxClass);
-
+        
+        echo $tempLogContent =  PHP_EOL; 
         foreach ($taxTable as $row)
         {
             foreach ($row as $value)
@@ -41,7 +40,7 @@ class TaxTable extends SalesReceiptTemplate
             echo PHP_EOL;
             $tempLogContent .= PHP_EOL;
         }
-        echo "\n\n";
+        echo PHP_EOL . PHP_EOL;
         return $tempLogContent .= PHP_EOL . PHP_EOL;
     }
 
