@@ -23,8 +23,8 @@ $bBrutto = 0;
 $filename = createFilename("txt");
 $logContent = [];
 $changeNumber = (int)(file_get_contents("ChangeNumber.txt")
-        ?: error_log("ChangeNumber.txt doesn't exixt. 
-        (That's the file in wgich Sales_managment writes the next Bon.Nr. for the next generated Bon.)"));
+        ?: error_log("ChangeNumber.txt doesn't exist. 
+        (That's the file in which Sales_managment writes the next Bon.Nr. for the next generated Bon.)"));
 
 //Sets the customerrect timezone
 date_default_timezone_set('Europe/Berlin');
@@ -46,11 +46,9 @@ $logContent['ProductList'] = "";
 $totalLineWidth = getLongestName($basket) + 30;
 //Program logic
 foreach ($basket as $name => $data) {
-    $product = Factory::createProduct($name, $data);
-    $productNameLength = getNameLength($name);
-    $logContent['ProductList'] .= $product->output($totalLineWidth, $productNameLength);
+    $product = Factory::createProduct($name, $data); 
+    $logContent['ProductList'] .= $product->output($totalLineWidth, getNameLength($name));
     $priceSum += $product->price;
-
     match ($product->taxClass) {
         'A' => $aBrutto += $product->price,
         'B' => $bBrutto += $product->price,
@@ -70,7 +68,8 @@ echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 $arrLogContent = $obj->getChange();
 
 #TODO $logContent['Change']?
-echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth) . PHP_EOL;
+echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
+readline();
 
 $logContent['Change'] .= $arrLogContent[0];
 

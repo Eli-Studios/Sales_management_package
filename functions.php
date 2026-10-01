@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Europe/Berlin');
+
 function getNameLength(string $name): int
 {
     return mb_strlen($name, "UTF-8");
