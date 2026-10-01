@@ -20,11 +20,11 @@ $priceSum = 0;
 $taxRates = ['A' => 19, 'B' => 7];
 $aBrutto = 0;
 $bBrutto = 0;
-$filename = createFilename("txt");
 $logContent = [];
 $changeNumber = (int)(file_get_contents("ChangeNumber.txt")
         ?? error_log("ChangeNumber.txt doesn't exist. 
         (That's the file in which Sales_managment writes the next Bon.Nr. for the next generated Bon.)"));
+$filename = createFilename("txt", $changeNumber);
 
 //Sets the customerrect timezone
 date_default_timezone_set('Europe/Berlin');
@@ -71,7 +71,7 @@ $arrLogContent = $obj->getChange();
 echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
 readline();
 
-$logContent['Change'] .= $arrLogContent[0];
+$logContent['Change'] .= $arrLogContent[0] . PHP_EOL;
 
 $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 

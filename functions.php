@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
 
-#TODO: Make the function names and variables mor reusable.
+#TODO: Make the function names and variables more reusable.
 function getNameLength(string $name): int
 {
     return mb_strlen($name, "UTF-8");
@@ -18,8 +18,8 @@ function printSum($totalLineWidth, $priceSum): string
     return $tempLogContent;
 }
 
-function createFilename($fileFormat): string {
-    return date("H.i") . "_" . date("d.m.Y") . "_" . "change-log-file" . ".$fileFormat";
+function createFilename($fileFormat, $changeNumber): string {
+    return $changeNumber . "_" . date("H.i") . "_" . date("d.m.Y") . "_" . "change-log-file" . ".$fileFormat";
 }
 
 function incrementChangeNumberInLogFile($changeNumber): void
