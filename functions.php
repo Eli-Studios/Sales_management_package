@@ -12,12 +12,7 @@ function getLongestName (array $basket): int
 
 #TODO: Is there a way to not print the user input again?
 function printSum($totalLineWidth, $priceSum): string
-{  
-    echo "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
-    $tempLogContent .= "Geg. BAR" . str_pad("EUR", 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
-    $payment = str_replace(",", ".", readline());
-    $tempLogContent .= $payment . PHP_EOL;
-    $change = $payment * 100 - $priceSum;
+{ 
     $priceSums[1] = new PriceSumGermany($change, "Rückgeld", "EUR");
     $tempLogContent .= $priceSums[1]->printPriceSum($totalLineWidth) . PHP_EOL;
     return $tempLogContent;
