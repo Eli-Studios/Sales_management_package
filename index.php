@@ -30,11 +30,11 @@ $changeNumber = (int)(file_get_contents("ChangeNumber.txt")
 (void)date_default_timezone_get();
 
 //Data arrays
-$headerData = file_get_contents("headerData.txt");
-$footerData = file_get_contents("footerData.txt");
-$tseData = file_get_contents("tseData.txt");
+$headerData = file_get_contents("./Data/headerData.txt");
+$footerData = file_get_contents("./Data/footerData.txt");
+$tseData = file_get_contents("./Data/tseData.txt");
 #My data array that contains all the products and it's data a customer wants to buy
-$basket = file_get_contents("basket.txt");
+$basket = file_get_contents("./Data/basket.txt");
 
 /*Printing the header of the change including the company name,
   the address, the phone number and the VAT-ID*/
