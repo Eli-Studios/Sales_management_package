@@ -12,7 +12,7 @@ class priceSumGermany extends PriceSumOperations
     public function getChange(): array
     {
         echo $tempLogContent = "Geg. BAR" . str_pad($this->currency, 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
-        $payment = str_replace(",", ".", readline());
+        $payment = (int)str_replace(",", ".", readline());
         $tempLogContent .= $payment . PHP_EOL;
         $change = $payment * 100 - $this->priceSum;
 

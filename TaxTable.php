@@ -40,8 +40,8 @@ class TaxTable extends SalesReceiptTemplate
             echo PHP_EOL;
             $tempLogContent .= PHP_EOL;
         }
-        echo PHP_EOL . PHP_EOL;
-        return $tempLogContent .= PHP_EOL . PHP_EOL;
+        echo PHP_EOL;
+        return $tempLogContent .= PHP_EOL;
     }
 
     public function __construct(array $taxClass, int $aBrutto, int $bBrutto)
