@@ -3,15 +3,12 @@
 class TaxTable extends SalesReceiptTemplate
 {
     private int $aNetto;
-    private int $aBrutto;
     private int $bNetto;
-    private int $bBrutto;
     private int $aTax;
     private int $bTax;
     private int $totalNetto;
     private int $totalBrutto;
     private int $totalTax;
-    private array $taxClass;
 
     public function calculateTaxTable(array $taxClass): array
     {
@@ -44,10 +41,11 @@ class TaxTable extends SalesReceiptTemplate
         return $tempLogContent .= PHP_EOL;
     }
 
-    public function __construct(array $taxClass, int $aBrutto, int $bBrutto)
-    {
-        $this->aBrutto = $aBrutto;
-        $this->bBrutto = $bBrutto;
+    public function __construct(
+      private array $taxClass,
+      private int $aBrutto,
+      private int $bBrutto
+    ){
         $this->aNetto = round($this->aBrutto / ((($taxClass['A'] + 100)) / 100));
         $this->bNetto = round($this->bBrutto / ((($taxClass['B'] + 100)) / 100));
         $this->aTax = round($this->aBrutto - $this->aNetto);
@@ -55,6 +53,5 @@ class TaxTable extends SalesReceiptTemplate
         $this->totalBrutto = $this->aBrutto + $this->bBrutto;
         $this->totalNetto = $this->aNetto + $this->bNetto;
         $this->totalTax = $this->aTax + $this->bTax;
-        $this->taxClass = $taxClass;
     }
 }

@@ -2,8 +2,6 @@
 
 class Footer extends SalesReceiptTemplate
 {
-    private array $footerData;
-
     public function output(): string {
         $tempLogContent = "";
         foreach ($this->footerData as $data)
@@ -19,8 +17,7 @@ class Footer extends SalesReceiptTemplate
         return $tempLogContent;
     }
 
-    public function __construct($footerData)
-    {
-        $this->footerData = $footerData;
-    }
+    public function __construct(
+      private array $footerData
+    ){}
 }

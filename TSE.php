@@ -2,7 +2,6 @@
 
 class TSE extends SalesReceiptTemplate
 {
-    private array $tseData;
     protected int $longestKey;
 
     public function output(): string
@@ -18,9 +17,9 @@ class TSE extends SalesReceiptTemplate
         echo PHP_EOL;
         return $tempLogContent .= PHP_EOL;
     }
-    public function __construct(array $tseData)
-    {
-        $this->tseData = $tseData;
+    public function __construct(
+      private array $tseData
+    ){
         $this->longestKey = 0;
     }
 }
