@@ -45,7 +45,7 @@ $basket = json_decode(file_get_contents("./Data/basket.json"), true);
 
 /*Printing the header of the change including the company name,
   the address, the phone number and the VAT-ID*/
-$logContent['Header'] = new Header($headerData)->output();
+echo $logContent['Header'] = new Header($headerData)->output();
 
 $logContent['ProductList'] = "";
 $totalLineWidth = getLongestName($basket) + 30;

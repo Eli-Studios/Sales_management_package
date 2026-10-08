@@ -15,7 +15,6 @@ class priceSumGermany extends PriceSumOperations
         $payment = (int)str_replace(",", ".", readline());
         $tempLogContent .= $payment . PHP_EOL;
         $change = $payment * 100 - $this->priceSum;
-
         return [$tempLogContent, $change];
     }
 
