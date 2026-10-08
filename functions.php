@@ -38,3 +38,7 @@ function saveLog($filename, $content): void
     }
     file_put_contents("./logs/" . $filename, $content);
 }
+
+function eraseCLILine() {
+  echo "\033[2k\n";
+}

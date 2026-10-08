@@ -76,6 +76,7 @@ $logContent['Payment'] = $arrLogContent[0];
 
 #TODO $logContent['Change']?
 echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
+eraseCLILine();
 readline();
 
 $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
