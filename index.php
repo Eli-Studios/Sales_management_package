@@ -76,7 +76,7 @@ echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 echo $obj->getPrefixOfGetChange();
 $arrLogContent = $obj->getChange();
 
-$logContent['Payment'] = $arrLogContent[0] . $obj->getPrefixOfGetChange();
+$logContent['Payment'] = $obj->getPrefixOfGetChange() . $arrLogContent[0] ;
 
 echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
 eraseCLILine();
