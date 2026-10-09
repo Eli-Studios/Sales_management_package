@@ -82,9 +82,9 @@ echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld",
 eraseCLILine();
 readline();
 
-$logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
+echo $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 
-$logContent['TSE'] = new TSE($tseData)->output();
+echo $logContent['TSE'] = new TSE($tseData)->output();
 
 echo $logContent['Footer'] = new Footer($footerData)->output();
 

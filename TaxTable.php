@@ -30,23 +30,20 @@ class TaxTable extends SalesReceiptTemplate
 
     public function printTablePart($value)
     {
-        echo str_pad($value, 15);
         $this->tempLogContent .= str_pad($value, 15);  
     }
 
     public function output(): string
     {
         $taxTable = $this->calculateTaxTable($this->taxClass);
-        echo $this->tempLogContent = PHP_EOL;
+        $this->tempLogContent = PHP_EOL;
 
         foreach ($taxTable as $row)
         {
             array_map($this->printTablePart(...), $row);
-            echo PHP_EOL;
             $this->tempLogContent .= PHP_EOL;
         }
 
-        echo PHP_EOL;
         return $this->tempLogContent .= PHP_EOL;
     }
 
