@@ -76,11 +76,11 @@ echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 echo $obj->getPrefixOfGetChange();
 $arrLogContent = $obj->getChange();
 
-$logContent['Payment'] = $obj->getPrefixOfGetChange() . $arrLogContent[0] ;
+$logContent['Payment'] = $obj->getPrefixOfGetChange() . $arrLogContent[0] . PHP_EOL;
 
 echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
-eraseCLILine();
 readline();
+$logContent['Change'] .= PHP_EOL;
 
 echo $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 

@@ -18,7 +18,7 @@ class priceSumGermany extends PriceSumOperations
     public function getChange(): array
     { 
         $payment = (int)str_replace(",", ".", readline());  
-        return [$payment . PHP_EOL, $payment * 100 - $this->priceSum];
+        return [$payment, $payment * 100 - $this->priceSum];
     }
 
     public function __construct($priceSum, $prefix, string $currency) {

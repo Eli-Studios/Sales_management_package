@@ -36,7 +36,6 @@ class TaxTable extends SalesReceiptTemplate
     public function output(): string
     {
         $taxTable = $this->calculateTaxTable($this->taxClass);
-        $this->tempLogContent = PHP_EOL;
 
         foreach ($taxTable as $row)
         {
