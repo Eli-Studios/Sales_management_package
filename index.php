@@ -50,16 +50,18 @@ echo $logContent['Header'] = new Header($headerData)->output();
 $logContent['ProductList'] = "";
 $totalLineWidth = getLongestName($basket) + 30;
 //Program logic
+$i = 0;
 foreach ($basket as $name => $data) {
     $product = Factory::createProduct($name, $data);
-    echo $product->output($totalLineWidth, getNameLength($name));
-    $logContent['ProductList'] .= $product->output($totalLineWidth, getNameLength($name));
+    echo $output = $product->output($totalLineWidth, getNameLength($name));
+    $logContent['ProductList'] .= $output;
     $priceSum += $product->price;
     match ($product->taxClass) {
         'A' => $aBrutto += $product->price,
         'B' => $bBrutto += $product->price,
         default => error_log("Invalid tax class: $product->taxClass"),
     };
+    $i++;
 }
 
 //Printing the footer including the 'sum'-section and the metadata of the change
