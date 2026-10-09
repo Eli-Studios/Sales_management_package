@@ -51,7 +51,8 @@ $logContent['ProductList'] = "";
 $totalLineWidth = getLongestName($basket) + 30;
 //Program logic
 foreach ($basket as $name => $data) {
-    $product = Factory::createProduct($name, $data); 
+    $product = Factory::createProduct($name, $data);
+    echo $product->output($totalLineWidth, getNameLength($name));
     $logContent['ProductList'] .= $product->output($totalLineWidth, getNameLength($name));
     $priceSum += $product->price;
     match ($product->taxClass) {
@@ -70,11 +71,11 @@ $logContent['Sum'] .= $obj->getPriceSum($totalLineWidth);
 
 echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
 
+echo $obj->getPrefixOfGetChange();
 $arrLogContent = $obj->getChange();
 
-$logContent['Payment'] = $arrLogContent[0];
+$logContent['Payment'] = $arrLogContent[0] . $obj->getPrefixOfGetChange();
 
-#TODO $logContent['Change']?
 echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
 eraseCLILine();
 readline();
@@ -83,7 +84,7 @@ $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
 
 $logContent['TSE'] = new TSE($tseData)->output();
 
-$logContent['Footer'] = new Footer($footerData)->output();
+echo $logContent['Footer'] = new Footer($footerData)->output();
 
 echo $logContent['FooterLine'] = SalesReceiptTemplate::getLine($totalLineWidth, "*");
 

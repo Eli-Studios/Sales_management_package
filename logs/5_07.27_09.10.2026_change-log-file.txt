@@ -1,0 +1,47 @@
+                         REWE                         
+                  Schorndorfer Str. 6                  
+                     73065 Uhingen                     
+
+
+                     07160-5060346                     
+                  UID Nr.:DE812706033                  
+
+SCHWEINEBRATEN                                  2,21 B
+HAE-OBERSCH.                                    3,65 B
+PISTAZIENLYONER                                 1,07 B
+BIO CASHEWKERNE                                 3,59 B
+PAKCHOI MINI                                    1,69 B
+HIMALAYA BASMATI                                2,29 B
+BAR STYLE MIX                                   1,69 B
+KINDERSCHOKOLADE                                1,39 B
+LIMO                                            2,06 A
+PFAND 0,16 EUR                                  0,16 A
+  2 Stk x    0,08
+FANTA MANGO DRACHENFRUCHT                       2,68 A
+PFAND 0,30 EUR                                  0,30 A
+  2 Stk x    0,15
+GEMUESEBUERSTEN                                 6,00 A
+-----------------------------------------------------
+SUMME                         EUR              28,78
+=====================================================
+30
+Geg. BAR                      EUR              Rückgeld                      EUR               1,22
+
+Steuer %       Netto          Steuer         Brutto         
+A= 19,0%        9,41            1,79          11,20         
+B=  7,0%       16,43            1,15          17,58         
+Gesamtbetrag   25,84            2,94          28,78         
+
+TSE-Signatur:       ecbCiBu2akyi0bffd4ke71xUj99Y9vdk0
+                    AB+/T1iHKn9if4HDNSEPLO9Mtd+rUNJWt
+                    a/3MTugzP7SS+v2IzPStVt18s36sPkCpP
+                    E9zgxGeRKa336e+XSeypfyfnin
+TSE-Signaturzähler: 2358647
+TSE-Transaktion:    1113623
+TSE-Start:          2024-10-12T10:42:33.000
+TSE-Stop:           2024-10-12T10:43:16.000
+Seriennummer Kasse: REWE:C0:03:5e-c9:12:00:00
+
+ 09.10.2026         07:27              Bon-Nr.:5         
+ Markt:0215         Kasse:3            Bed.:141414       
+*****************************************************

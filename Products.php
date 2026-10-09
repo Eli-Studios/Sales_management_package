@@ -8,9 +8,8 @@ abstract class Products
 
    public function output($totalLineWidth, $productNameLength): string
    {
-       echo $tempContent = mb_strtoupper($this->name) . str_pad(number_format(round((float)$this->price / 100, 2), 2, ",")
+       return mb_strtoupper($this->name) . str_pad(number_format(round((float)$this->price / 100, 2), 2, ",")
            . " $this->taxClass" . PHP_EOL, $totalLineWidth - $productNameLength, " ", STR_PAD_LEFT);
-       return $tempContent;
    }
 
    public function __construct(string $name, array $data)
