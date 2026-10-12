@@ -107,6 +107,9 @@ while($arrLogContent[1] < 0) {
     echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
 }
 readline();
+
+/****Side Note:** There is a logging feature, that logs all generated receipts as text files under /Sales_management/logs.
+ *                The logs are named as follows: receipt number_hour.minute_day.month.year_change-log-file.txt.**/
 $logContent['Change'] .= PHP_EOL;
 
 echo $logContent['TaxTable'] = new TaxTable($taxRates, $aBrutto, $bBrutto)->output();
