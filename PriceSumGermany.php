@@ -15,10 +15,10 @@ class priceSumGermany extends PriceSumOperations
         return "Geg. BAR" . str_pad($this->currency, 25, " ", STR_PAD_LEFT) . str_pad(" ", 14, " ", STR_PAD_LEFT);
     }
 
-    public function getChange(): array
+    public function getChange(int $payment): array
     { 
-        $payment = (int)str_replace(",", ".", readline());  
-        return [$payment, $payment * 100 - $this->priceSum];
+        $payment += ((float)str_replace(",", ".", readline())) * 100;  
+        return [$payment, $payment - $this->priceSum];
     }
 
     public function __construct($priceSum, $prefix, string $currency) {
