@@ -31,10 +31,12 @@ if ($changeNumberRaw === false) {
 }
 $filename = createFilename("txt", $changeNumber);
 
-//Sets the customerrect timezone
+/**Default timezone is Europe/Berlin**/
 date_default_timezone_set('Europe/Berlin');
 
 //Data arrays
+/**1.Every scanned product is going to be displayed in a table with the name, price, tax class and if needed
+ the deposit.**/
 $headerData = json_decode(file_get_contents("./Data/headerData.json"), true);
 $footerData = json_decode(file_get_contents("./Data/footerData.json"), true);
 $footerData['row1']['Date'] = date('d.m.Y');
@@ -66,12 +68,29 @@ foreach ($basket as $name => $data) {
 
 //Printing the footer including the 'sum'-section and the metadata of the change
 $logContent['Sum'] = SalesReceiptTemplate::getLine($totalLineWidth, "-");
-
+/**2. The price of every product is going to be summed up to a main sum which is displayed under the products table.**/
 $obj = new PriceSumGermany($priceSum, "SUMME", "EUR");
 
 $logContent['Sum'] .= $obj->getPriceSum($totalLineWidth);
 
 echo $logContent['Sum'] .= SalesReceiptTemplate::getLine($totalLineWidth, "=");
+
+/**3. The program stops at the point where you can write in the amount of the payment donated by the customer.**/
+/**There are three cases that can happen now:
+ * Case 1: The customer pays the exact amount as the total Sum is showing.
+ *          What happens? --> The program calculates a change of 0 Euros and prints it under the payment input field.
+ *          What to do? --> Just prove read if everything is fine and press ENTER to print the rest of the receipt.
+ * Case 2: The customer pays more than he haad to.
+ *          What happens? --> The application calculates the change that you have to pay back to the customer and prints it.
+ *          What to do? --> Donate the amount of cash printed to the customer and hit ENTER.
+ * Case 3: The customer pays less than he should have done.
+ *          What happens? --> The amount of change is negative
+ *                            and a red info-message tells you how much money the customer has got left to pay.
+ *          What to do? --> Tell the customer, that he didn't payed enough and how much he has to pay.
+ *                      --> Type the amount of money paid into the input field
+ *                          (If you still haven't got enough money repeat the two steps above.)
+ *                      --> When everything is fine, the program prints you the change you need to return or that you don't have to donate any change to the customer.
+ *                      --> Hit ENTER to print the rest of the Receipt.**/
 
 echo $obj->getPrefixOfGetChange();
 
