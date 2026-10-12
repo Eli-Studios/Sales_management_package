@@ -81,11 +81,11 @@ $logContent['Payment'] = $obj->getPrefixOfGetChange() . $arrLogContent[0] . PHP_
 
 echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
 while($arrLogContent[1] < 0) {
-  printf("\033[1m\033[31mEs müssen noch \033[33m%3.2f\033[31m Euro nachgezahlt werden!\033[0m\033[22m " . PHP_EOL, ($arrLogContent[1] * (-1)) / 100); 
-  echo $obj->getPrefixOfGetChange();
-  $arrLogContent = $obj->getChange($arrLogContent[0]);
-  $logContent['Payment'] = $obj->getPrefixOfGetChange() . number_format($arrLogContent[0] / 100, 2, ","). PHP_EOL;
-  echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
+    printf("\033[1m\033[31mEs müssen noch \033[33m%3.2f\033[31m Euro nachgezahlt werden!\033[0m\033[22m " . PHP_EOL, ($arrLogContent[1] * (-1)) / 100); 
+    echo $obj->getPrefixOfGetChange();
+    $arrLogContent = $obj->getChange($arrLogContent[0]);
+    $logContent['Payment'] = $obj->getPrefixOfGetChange() . number_format($arrLogContent[0] / 100, 2, ","). PHP_EOL;
+    echo $logContent['Change'] = new PriceSumGermany($arrLogContent[1], "Rückgeld", "EUR")->getPriceSum($totalLineWidth);
 }
 readline();
 $logContent['Change'] .= PHP_EOL;
