@@ -1,19 +1,19 @@
 {
 	"name": "Eli-Studios/Sales_management_package",
 	"description": "All classes and functions used in a project called 'Sales_management'",
-	"keywords": ["class", "function", "sale", "receipt", "change", "payment", "cashier", "money",
+	"keywords": ["class", "function", "sale", "receipt", "change", "payment", "cashier", "money"],
 	"type": "library",
 	"license": "Apache-2.0",
 	"author": [
 		{
-			"name": "Elias Quär",
+			"name": "Elias Quär"
 		}
 	],
 	"require": {
-		"php": ">=8.5.0",
+		"php": ">=8.5.0"
 	},
 	"require-dev": {
-		"composer/composer": "^1.10.22",
+		"composer/composer": "^1.10.22"
 	},
 	"autoload": {
 		"psr-4": {
