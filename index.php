@@ -14,6 +14,7 @@ require_once 'Footer.php';
 require_once 'TSE.php';
 
 require_once 'functions.php';
+require_once './vendor/autoload.php';
 
 //Variables | First declaration and initialization
 $priceSum = 0;

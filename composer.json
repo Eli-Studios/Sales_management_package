@@ -1,0 +1,13 @@
+{	
+	"rewuire":{
+		"phpdocumentor/shim":"3.*"
+	},
+	"require": {
+		"phpdocumentor/shim": "^3.10"
+	},
+	"config": {
+		"allow-plugins": {
+			"phpdocumentor/shim": true
+		}
+	}
+}
