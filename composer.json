@@ -1,5 +1,5 @@
 {
-	"name": "Eli-Studios/Sales_management_package",
+	"name": "eli-studios/sales_management_package",
 	"description": "All classes and functions used in a project called 'Sales_management'",
 	"keywords": ["class", "function", "sale", "receipt", "change", "payment", "cashier", "money"],
 	"type": "library",
