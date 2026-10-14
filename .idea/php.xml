@@ -15,6 +15,16 @@
       <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="4f077aa1-1e18-4dad-8c71-5b0bfa890d7a" timeout="30000" />
     </phpcs_settings>
   </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/vendor/phpdocumentor/shim" />
+      <path value="$PROJECT_DIR$/vendor/vendor/phar-io/gnupg" />
+      <path value="$PROJECT_DIR$/vendor/vendor/phar-io/executor" />
+      <path value="$PROJECT_DIR$/vendor/vendor/phar-io/composer-distributor" />
+      <path value="$PROJECT_DIR$/vendor/vendor/phar-io/filesystem" />
+    </include_path>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.5" />
   <component name="PhpStan">
     <PhpStan_settings>
