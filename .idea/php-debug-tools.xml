@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpDebugToolsProjectEntryFileService">
+    <option name="selectedEntryFile" value="index.php" />
+  </component>
+  <component name="PhpDebugToolsRecentDebugStore">
+    <option name="cachedPhpRuntimes">
+      <list>
+        <CachedPhpRuntimeState>
+          <option name="command" value="C:\php\php.exe" />
+          <option name="source" value="PATH" />
+          <option name="version" value="8.5.10" />
+        </CachedPhpRuntimeState>
+      </list>
+    </option>
+  </component>
+</project>

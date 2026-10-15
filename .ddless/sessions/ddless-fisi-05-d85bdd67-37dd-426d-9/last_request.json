@@ -1,0 +1,33 @@
+{
+  "method": "GET",
+  "uri": "/",
+  "path": "/",
+  "headers": {
+    "host": "localhost:8001",
+    "connection": "keep-alive",
+    "sec-ch-ua": "\"Brave\";v=\"153\", \"Not_A Brand\";v=\"8\", \"Chromium\";v=\"153\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "upgrade-insecure-requests": "1",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "sec-gpc": "1",
+    "sec-fetch-site": "none",
+    "sec-fetch-mode": "navigate",
+    "sec-fetch-user": "?1",
+    "sec-fetch-dest": "document",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "de-DE,de;q=0.9",
+    "cookies": [
+      "n8n-auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRmMDJmMGQ4LWMxMDgtNDdkYi04ZTg0LTk3OGNhOTdjZWNjYiIsImhhc2giOiJGM0VqVHRJUitQIiwiYnJvd3NlcklkIjoieWJIRm9TeGtmOFFXeGF6SEQ5dzdBYzBobk9POE9yM1ltM2REWmloNm9DZz0iLCJ1c2VkTWZhIjpmYWxzZSwiaWF0IjoxNzg5MTA2MzI1LCJleHAiOjE3ODk3MTExMjV9.YiBmpluGYQs5CQpe2k1jCU-BWn9pOmgUfy1nsUfbGHs",
+      "rl_page_init_referrer=RudderEncrypt%3AU2FsdGVkX1%2B1O0IQoOFQmB7oE15jvH%2FvnJGns8UckrE%3D",
+      "rl_page_init_referring_domain=RudderEncrypt%3AU2FsdGVkX1%2Bc10l0UFXn6JeMhrXCmheYVzxKTUfd6gc%3D",
+      "rl_anonymous_id=RudderEncrypt%3AU2FsdGVkX1%2Bj10Skaq4rCOUAXkJwDZQv8K9yw76L6H6lwcgyKWui%2B%2FV%2Favnz1lRKL%2BoGdo6Dmpt98hCetl9oqQ%3D%3D",
+      "rl_user_id=RudderEncrypt%3AU2FsdGVkX1%2FSj8nClsWXr6M2YJKNMZlkT0MToOyBSJ2ouEr52GOwF0%2BtzPVFTmZfCR1eHovNwksdnr8hOM1KREMo%2BBIyFHcThfGCt5E3pEBO5UykSrN9LcwcZxMBbgvcr2hdYR5Vz6XOyETuRwwLsX%2Bb%2FCCa17jgv89v6%2BlZFy8%3D",
+      "rl_trait=RudderEncrypt%3AU2FsdGVkX19qL1MrPvNHZwcVhbGdev32XtF%2B0rMiHZ2OX3Ccvyxp%2FH6VkfPElBLhplLwD69mC%2FmRVHrU0ASOfpvaaoku9Zfj4cTu0wr7Mp8bTmAd1tPo5WV0crZSu%2FcsNf%2Bml58ZCB3umLi1Q4DvkyC3eJkhnZPqcdaukO8iLo6Ec%2BAQ9MkCEOqzbY7Iw0b%2BB6Rh0Gzbe168Fg3Z%2FTjq1g%3D%3D",
+      "ph_phc_kMstNfAgBcBkWSh6KdsgN09heqqNe5VNmalHP1Ni9Q4_posthog=%7B%22%24device_id%22%3A%22a865d3cc385f63dff6c3a2a7e2eeeb2d0953c7c170f17be461909a1f75ea4051%234f02f0d8-c108-47db-8e84-978ca97ceccb%22%2C%22distinct_id%22%3A%22a865d3cc385f63dff6c3a2a7e2eeeb2d0953c7c170f17be461909a1f75ea4051%234f02f0d8-c108-47db-8e84-978ca97ceccb%22%2C%22%24sesid%22%3A%5B1789108468922%2C%2201a08f0c-0aab-7cd7-9ac1-501e0c11119d%22%2C1789106326185%5D%2C%22%24epp%22%3Atrue%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22http%3A%2F%2Flocalhost%3A5678%2Fassistant%22%7D%2C%22%24user_state%22%3A%22identified%22%7D",
+      "rl_session=RudderEncrypt%3AU2FsdGVkX19AL4%2BCaj9T0csriKrDIB6PMZKcq5eFlD%2BMVNqf93iXuaXc0iqkJoyG1OCCJLFbVYSXk8gR6NaGh6JEM5WSajpevhgBC8LGNA25ag5aylXCx%2FUkimMY5gAQCUXiDmQeUBTBbELXH6cQag%3D%3D"
+    ]
+  },
+  "query": {}
+}

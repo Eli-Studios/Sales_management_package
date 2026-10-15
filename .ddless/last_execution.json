@@ -1,0 +1,107 @@
+{
+    "timestamp": "2026-09-16T07:16:58+00:00",
+    "sessionId": null,
+    "request": {
+        "method": "GET",
+        "path": "/",
+        "fullUrl": "http://localhost:8001/",
+        "headers": {
+            "HOST": "localhost:8001",
+            "CONNECTION": "keep-alive",
+            "SEC-CH-UA": "\"Brave\";v=\"153\", \"Not_A Brand\";v=\"8\", \"Chromium\";v=\"153\"",
+            "SEC-CH-UA-MOBILE": "?0",
+            "SEC-CH-UA-PLATFORM": "\"Windows\"",
+            "UPGRADE-INSECURE-REQUESTS": "1",
+            "USER-AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+            "ACCEPT": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+            "SEC-GPC": "1",
+            "SEC-FETCH-SITE": "none",
+            "SEC-FETCH-MODE": "navigate",
+            "SEC-FETCH-USER": "?1",
+            "SEC-FETCH-DEST": "document",
+            "ACCEPT-ENCODING": "gzip, deflate, br, zstd",
+            "ACCEPT-LANGUAGE": "de-DE,de;q=0.9",
+            "COOKIES": "n8n-auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRmMDJmMGQ4LWMxMDgtNDdkYi04ZTg0LTk3OGNhOTdjZWNjYiIsImhhc2giOiJGM0VqVHRJUitQIiwiYnJvd3NlcklkIjoieWJIRm9TeGtmOFFXeGF6SEQ5dzdBYzBobk9POE9yM1ltM2REWmloNm9DZz0iLCJ1c2VkTWZhIjpmYWxzZSwiaWF0IjoxNzg5MTA2MzI1LCJleHAiOjE3ODk3MTExMjV9.YiBmpluGYQs5CQpe2k1jCU-BWn9pOmgUfy1nsUfbGHs, rl_page_init_referrer=RudderEncrypt%3AU2FsdGVkX1%2B1O0IQoOFQmB7oE15jvH%2FvnJGns8UckrE%3D, rl_page_init_referring_domain=RudderEncrypt%3AU2FsdGVkX1%2Bc10l0UFXn6JeMhrXCmheYVzxKTUfd6gc%3D, rl_anonymous_id=RudderEncrypt%3AU2FsdGVkX1%2Bj10Skaq4rCOUAXkJwDZQv8K9yw76L6H6lwcgyKWui%2B%2FV%2Favnz1lRKL%2BoGdo6Dmpt98hCetl9oqQ%3D%3D, rl_user_id=RudderEncrypt%3AU2FsdGVkX1%2FSj8nClsWXr6M2YJKNMZlkT0MToOyBSJ2ouEr52GOwF0%2BtzPVFTmZfCR1eHovNwksdnr8hOM1KREMo%2BBIyFHcThfGCt5E3pEBO5UykSrN9LcwcZxMBbgvcr2hdYR5Vz6XOyETuRwwLsX%2Bb%2FCCa17jgv89v6%2BlZFy8%3D, rl_trait=RudderEncrypt%3AU2FsdGVkX19qL1MrPvNHZwcVhbGdev32XtF%2B0rMiHZ2OX3Ccvyxp%2FH6VkfPElBLhplLwD69mC%2FmRVHrU0ASOfpvaaoku9Zfj4cTu0wr7Mp8bTmAd1tPo5WV0crZSu%2FcsNf%2Bml58ZCB3umLi1Q4DvkyC3eJkhnZPqcdaukO8iLo6Ec%2BAQ9MkCEOqzbY7Iw0b%2BB6Rh0Gzbe168Fg3Z%2FTjq1g%3D%3D, ph_phc_kMstNfAgBcBkWSh6KdsgN09heqqNe5VNmalHP1Ni9Q4_posthog=%7B%22%24device_id%22%3A%22a865d3cc385f63dff6c3a2a7e2eeeb2d0953c7c170f17be461909a1f75ea4051%234f02f0d8-c108-47db-8e84-978ca97ceccb%22%2C%22distinct_id%22%3A%22a865d3cc385f63dff6c3a2a7e2eeeb2d0953c7c170f17be461909a1f75ea4051%234f02f0d8-c108-47db-8e84-978ca97ceccb%22%2C%22%24sesid%22%3A%5B1789108468922%2C%2201a08f0c-0aab-7cd7-9ac1-501e0c11119d%22%2C1789106326185%5D%2C%22%24epp%22%3Atrue%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22http%3A%2F%2Flocalhost%3A5678%2Fassistant%22%7D%2C%22%24user_state%22%3A%22identified%22%7D, rl_session=RudderEncrypt%3AU2FsdGVkX19AL4%2BCaj9T0csriKrDIB6PMZKcq5eFlD%2BMVNqf93iXuaXc0iqkJoyG1OCCJLFbVYSXk8gR6NaGh6JEM5WSajpevhgBC8LGNA25ag5aylXCx%2FUkimMY5gAQCUXiDmQeUBTBbELXH6cQag%3D%3D",
+            "Content-Length": "0"
+        },
+        "query": [],
+        "input": [],
+        "cookies": {
+            "n8n-auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRmMDJmMGQ4LWMxMDgtNDdkYi04ZTg0LTk3OGNhOTdjZWNjYiIsImhhc2giOiJGM0VqVHRJUitQIiwiYnJvd3NlcklkIjoieWJIRm9TeGtmOFFXeGF6SEQ5dzdBYzBobk9POE9yM1ltM2REWmloNm9DZz0iLCJ1c2VkTWZhIjpmYWxzZSwiaWF0IjoxNzg5MTA2MzI1LCJleHAiOjE3ODk3MTExMjV9.YiBmpluGYQs5CQpe2k1jCU-BWn9pOmgUfy1nsUfbGHs",
+            "rl_page_init_referrer": "RudderEncrypt:U2FsdGVkX1+1O0IQoOFQmB7oE15jvH/vnJGns8UckrE=",
+            "rl_page_init_referring_domain": "RudderEncrypt:U2FsdGVkX1+c10l0UFXn6JeMhrXCmheYVzxKTUfd6gc=",
+            "rl_anonymous_id": "RudderEncrypt:U2FsdGVkX1+j10Skaq4rCOUAXkJwDZQv8K9yw76L6H6lwcgyKWui+/V/avnz1lRKL+oGdo6Dmpt98hCetl9oqQ==",
+            "rl_user_id": "RudderEncrypt:U2FsdGVkX1/Sj8nClsWXr6M2YJKNMZlkT0MToOyBSJ2ouEr52GOwF0+tzPVFTmZfCR1eHovNwksdnr8hOM1KREMo+BIyFHcThfGCt5E3pEBO5UykSrN9LcwcZxMBbgvcr2hdYR5Vz6XOyETuRwwLsX+b/CCa17jgv89v6+lZFy8=",
+            "rl_trait": "RudderEncrypt:U2FsdGVkX19qL1MrPvNHZwcVhbGdev32XtF+0rMiHZ2OX3Ccvyxp/H6VkfPElBLhplLwD69mC/mRVHrU0ASOfpvaaoku9Zfj4cTu0wr7Mp8bTmAd1tPo5WV0crZSu/csNf+ml58ZCB3umLi1Q4DvkyC3eJkhnZPqcdaukO8iLo6Ec+AQ9MkCEOqzbY7Iw0b+B6Rh0Gzbe168Fg3Z/Tjq1g==",
+            "ph_phc_kMstNfAgBcBkWSh6KdsgN09heqqNe5VNmalHP1Ni9Q4_posthog": "{\"$device_id\":\"a865d3cc385f63dff6c3a2a7e2eeeb2d0953c7c170f17be461909a1f75ea4051#4f02f0d8-c108-47db-8e84-978ca97ceccb\",\"distinct_id\":\"a865d3cc385f63dff6c3a2a7e2eeeb2d0953c7c170f17be461909a1f75ea4051#4f02f0d8-c108-47db-8e84-978ca97ceccb\",\"$sesid\":[1789108468922,\"01a08f0c-0aab-7cd7-9ac1-501e0c11119d\",1789106326185],\"$epp\":true,\"$initial_person_info\":{\"r\":\"$direct\",\"u\":\"http://localhost:5678/assistant\"},\"$user_state\":\"identified\"}",
+            "rl_session": "RudderEncrypt:U2FsdGVkX19AL4+Caj9T0csriKrDIB6PMZKcq5eFlD+MVNqf93iXuaXc0iqkJoyG1OCCJLFbVYSXk8gR6NaGh6JEM5WSajpevhgBC8LGNA25ag5aylXCx/UkimMY5gAQCUXiDmQeUBTBbELXH6cQag=="
+        },
+        "rawBody": {
+            "content": "",
+            "encoding": "utf8",
+            "truncated": false
+        }
+    },
+    "response": {
+        "status": 200,
+        "statusText": "OK",
+        "headers": [],
+        "body": {
+            "content": "﻿SCHWEINEBRATEN                                                2,21 B\nHAE-OBERSCH.                                                  3,65 B\nPISTAZIENLYONER                                               1,07 B\nBIO CASHEWKERNE                                               3,59 B\nPAKCHOI MINI                                                  1,69 B\nHIMALAYA BASMATI                                              2,29 B\nBAR STYLE MIX                                                 1,69 B\nKINDERSCHOKOLADE                                              1,39 B\nLIMO                                                          1,90 A\n  PFAND 0,08 EUR                                              0,16 A\n  2 Stk x   0,08\nFANTA MANGO DRACHENFRUCHT                                     2,38 A\n  PFAND 0,15 EUR                                              0,30 A\n  2 Stk x   0,15\nGEMUESEBUERSTEN                                               6,00 A\n--------------------------------------------------------------------\nSUMME                      EUR       28,32\n====================================================================\n\n\nGeg. BAR: ",
+            "encoding": "utf8",
+            "truncated": false
+        }
+    },
+    "context": {
+        "route": {
+            "uri": "/",
+            "name": null,
+            "methods": [
+                "GET"
+            ],
+            "action": "index.php",
+            "parameters": []
+        },
+        "controller": {
+            "file": "index.php",
+            "class": null,
+            "method": null,
+            "startLine": 1,
+            "endLine": null
+        },
+        "breakpoints": [],
+        "hitBreakpoints": [],
+        "variables": {
+            "query": [],
+            "post": []
+        },
+        "callStack": [],
+        "error": {
+            "message": "number_format(): Argument #1 ($num) must be of type int|float, string given",
+            "file": "index.php",
+            "line": 56,
+            "trace": [
+                {
+                    "label": "number_format",
+                    "file": "index.php",
+                    "line": 56
+                },
+                {
+                    "label": "require",
+                    "file": ".ddless/frameworks/php/http_request.php",
+                    "line": 457
+                },
+                {
+                    "label": "require_once",
+                    "file": ".ddless/http_trigger.php",
+                    "line": 357
+                }
+            ]
+        }
+    },
+    "metrics": {
+        "durationMs": 19527.1778,
+        "memoryPeakBytes": 4194304
+    },
+    "logs": []
+}
